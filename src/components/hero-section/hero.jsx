@@ -24,7 +24,7 @@ export default function Hero() {
                 <div className="space-y-4 max-w-3xl">
                     <h1 className="text-2xl sm:text-5xl md:text-6xl lg:text-7xl font-extrabold tracking-tight text-white uppercase leading-tight sm:leading-[1.05] drop-shadow-lg break-words">
                         <FoldText
-                            text="JIRON PANDAY"
+                            text="RONDEV"
                             splitBy="char"
                             hinge="top"
                             trigger="scroll"
@@ -41,7 +41,7 @@ export default function Hero() {
                         <br />
                         <span className="text-purple-300/80 text-xl sm:text-4xl md:text-5xl lg:text-6xl">
                             <FoldText
-                                text="ASPIRING DESIGNER & DEVELOPER"
+                                text="ASPIRING DEVELOPER AND DESIGNER"
                                 splitBy="char"
                                 hinge="top"
                                 trigger="scroll"
@@ -59,7 +59,7 @@ export default function Hero() {
                     </h1>
 
                     <p className="text-neutral-300 text-xs sm:text-base md:text-lg max-w-2xl leading-relaxed drop-shadow">
-                        Specializing in high-performance web applications, Funnel design, and modern UI engineering.
+                        Specializing in web applications and Funnel developer.
                     </p>
 
                     <div className="flex flex-col sm:flex-row flex-wrap gap-3 sm:gap-4 pt-2 w-full sm:w-auto">

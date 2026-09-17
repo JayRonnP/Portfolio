@@ -239,9 +239,7 @@ const DriftWall = ({
     release();
   }, [release]);
 
-  const maskStyle =
-    'radial-gradient(ellipse 78% 82% at 50% 46%, #000 var(--dw-edge), transparent 100%), ' +
-    'linear-gradient(to top, #000 var(--dw-edge), transparent 100%)';
+  const maskStyle = 'linear-gradient(to bottom, transparent 0%, black 6%, black 94%, transparent 100%)';
 
   const cssVars = useMemo(
     () => ({
@@ -258,8 +256,6 @@ const DriftWall = ({
       perspectiveOrigin: '50% 50%',
       WebkitMaskImage: maskStyle,
       maskImage: maskStyle,
-      WebkitMaskComposite: 'source-in',
-      maskComposite: 'intersect',
       ...style
     }),
     [tileWidth, tileHeight, gap, radius, lift, dim, grayscale, overlayColor, fade, perspective, maskStyle, style]

@@ -1,13 +1,18 @@
 import React, { useState, useEffect } from 'react'
 import { AnimatePresence, motion } from 'framer-motion'
 import { Terminal } from 'lucide-react'
+import gsap from 'gsap'
+import { ScrollTrigger } from 'gsap/ScrollTrigger'
 import LandingPage from './components/landing/LandingPage'
 import Hero from './components/hero-section/hero'
 import HorizontalScrollSection from './components/works/HorizontalScrollSection'
 import ContactSection from './components/contact/contact'
 
+gsap.registerPlugin(ScrollTrigger)
+
 export default function App() {
   const [hasEntered, setHasEntered] = useState(false)
+  const [animationDone, setAnimationDone] = useState(false)
 
   // Lock body & document scroll until the user enters from the Landing Page
   useEffect(() => {
@@ -19,6 +24,14 @@ export default function App() {
       document.body.style.overflow = ''
       document.documentElement.style.overflow = ''
       document.body.style.touchAction = ''
+
+      // Refresh ScrollTrigger after layout unlocks and settles
+      const t1 = setTimeout(() => ScrollTrigger.refresh(), 100)
+      const t2 = setTimeout(() => ScrollTrigger.refresh(), 1200)
+      return () => {
+        clearTimeout(t1)
+        clearTimeout(t2)
+      }
     }
     return () => {
       document.body.style.overflow = ''
@@ -28,7 +41,7 @@ export default function App() {
   }, [hasEntered])
 
   return (
-    <div className="min-h-screen bg-black text-neutral-100 font-sans selection:bg-neutral-800 selection:text-white relative overflow-x-hidden">
+    <div className="min-h-screen bg-black text-neutral-100 font-sans selection:bg-neutral-800 selection:text-white relative">
       {/* 0. Pre-Hero Interactive Landing Page Overlay */}
       <AnimatePresence>
         {!hasEntered && (
@@ -50,13 +63,9 @@ export default function App() {
 
       {/* Main Portfolio Content (revealed after entering) */}
       <motion.div
-        initial={{ opacity: 0, scale: 1.03, filter: 'blur(8px)' }}
-        animate={{
-          opacity: hasEntered ? 1 : 0,
-          scale: hasEntered ? 1 : 1.03,
-          filter: hasEntered ? 'blur(0px)' : 'blur(8px)'
-        }}
-        transition={{ duration: 1.1, ease: [0.76, 0, 0.24, 1], delay: 0.15 }}
+        initial={{ opacity: 0 }}
+        animate={{ opacity: hasEntered ? 1 : 0 }}
+        transition={{ duration: 0.8, ease: 'easeOut' }}
         className={hasEntered ? '' : 'pointer-events-none aria-hidden="true"'}
       >
         {/* Sticky Header */}

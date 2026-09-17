@@ -176,9 +176,7 @@ export function FeaturesSection() {
         {/* 1. Hero Image Shuffler - Spans 4 Columns & 2 Rows */}
         <motion.div
           className="md:col-span-4 md:row-span-2 bg-zinc-900/90 border border-zinc-800 rounded-xl p-4 flex flex-col justify-between hover:border-purple-500/50 transition-colors cursor-pointer overflow-hidden"
-          initial={{ opacity: 0, y: 15 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
+          initial={{ opacity: 1, y: 0 }}
           whileHover={{ scale: 0.995 }}
         >
           <div className="flex items-center justify-between mb-2">
@@ -199,10 +197,7 @@ export function FeaturesSection() {
         {/* 2. Developer Tools & Tech Stack - Spans 2 Columns & 2 Rows (Top Right Full Height) */}
         <motion.div
           className="md:col-span-2 md:row-span-2 bg-zinc-900/90 border border-zinc-800 rounded-xl p-4 flex flex-col justify-between hover:border-purple-500/50 transition-colors group cursor-pointer"
-          initial={{ opacity: 0, y: 15 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ delay: 0.2 }}
+          initial={{ opacity: 1, y: 0 }}
           whileHover={{ scale: 0.995 }}
         >
           <div>
@@ -223,10 +218,7 @@ export function FeaturesSection() {
         {/* 3. Branding Color - Spans 2 Columns (Bottom Row Left) */}
         <motion.div
           className="md:col-span-2 bg-zinc-900/90 border border-zinc-800 rounded-xl p-4 flex flex-col justify-between hover:border-purple-500/50 transition-colors cursor-pointer overflow-hidden"
-          initial={{ opacity: 0, y: 15 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ delay: 0.3 }}
+          initial={{ opacity: 1, y: 0 }}
           whileHover={{ scale: 0.995 }}
         >
           <div className="flex items-center justify-between mb-1">
@@ -240,10 +232,7 @@ export function FeaturesSection() {
         {/* 4. Logo - Spans 2 Columns (Bottom Row Center) */}
         <motion.div
           className="md:col-span-2 bg-zinc-900/90 border border-zinc-800 rounded-xl p-3.5 flex flex-col justify-between hover:border-purple-500/50 transition-colors cursor-pointer overflow-hidden group h-full"
-          initial={{ opacity: 0, y: 15 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ delay: 0.4 }}
+          initial={{ opacity: 1, y: 0 }}
           whileHover={{ scale: 0.995 }}
         >
           <div className="flex-1 w-full min-h-0 flex items-center justify-center bg-white rounded-lg p-1.5 shadow-sm border border-zinc-200/80 overflow-hidden">
@@ -263,10 +252,7 @@ export function FeaturesSection() {
         <motion.div
           onClick={() => window.open('https://tagpuantest.netlify.app/', '_blank', 'noopener,noreferrer')}
           className="md:col-span-2 bg-gradient-to-b from-purple-950/40 via-zinc-900/90 to-zinc-900/90 border border-purple-500/40 rounded-xl p-4 flex flex-col items-center justify-center text-center hover:border-purple-400 transition-all cursor-pointer overflow-hidden group relative shadow-[0_0_25px_rgba(168,85,247,0.15)]"
-          initial={{ opacity: 0, y: 15 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ delay: 0.5 }}
+          initial={{ opacity: 1, y: 0 }}
           whileHover={{ scale: 0.995 }}
         >
           <div className="mb-2 flex flex-col items-center">

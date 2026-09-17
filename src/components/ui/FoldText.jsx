@@ -275,11 +275,10 @@ const FoldText = ({
 
         ScrollTrigger.create({
           trigger: root,
-          start: 'top 92%',
+          start: 'top 95%',
           onEnter: () => play(false),
           onEnterBack: () => play(false),
-          onLeave: () => gsap.set(pieces, fromVars),
-          onLeaveBack: () => gsap.set(pieces, fromVars)
+          once: true
         });
 
         requestAnimationFrame(() => {

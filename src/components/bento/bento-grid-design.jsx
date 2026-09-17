@@ -187,10 +187,7 @@ export default function BentoGridDesign() {
         {/* 1. Main Graphic Showcase - Spans 4 Columns & 2 Rows */}
         <motion.div
           className="md:col-span-4 md:row-span-2 bg-zinc-900/90 border border-zinc-800 rounded-xl p-4 flex flex-col justify-between hover:border-purple-500/50 transition-colors group overflow-hidden"
-          initial={{ opacity: 0, y: 15 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ delay: 0.1 }}
+          initial={{ opacity: 1, y: 0 }}
           whileHover={{ scale: 0.995 }}
         >
           <div className="flex items-center justify-between mb-2">
@@ -211,10 +208,7 @@ export default function BentoGridDesign() {
         {/* 2. Design Tools & Stack - Spans 2 Columns & 2 Rows (Top Right Full Height) */}
         <motion.div
           className="md:col-span-2 md:row-span-2 bg-zinc-900/90 border border-zinc-800 rounded-xl p-4 flex flex-col justify-between hover:border-purple-500/50 transition-colors group cursor-pointer"
-          initial={{ opacity: 0, y: 15 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ delay: 0.2 }}
+          initial={{ opacity: 1, y: 0 }}
           whileHover={{ scale: 0.995 }}
         >
           <div>
@@ -235,10 +229,7 @@ export default function BentoGridDesign() {
         {/* 3. Poster & Editorial Design - Spans 2 Columns (Bottom Row Left) */}
         <motion.div
           className="md:col-span-2 bg-zinc-900/90 border border-zinc-800 rounded-xl p-4 flex flex-col justify-between hover:border-purple-500/50 transition-colors group overflow-hidden"
-          initial={{ opacity: 0, y: 15 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ delay: 0.3 }}
+          initial={{ opacity: 1, y: 0 }}
           whileHover={{ scale: 0.995 }}
         >
           <div className="flex items-center justify-between mb-2">
@@ -255,10 +246,7 @@ export default function BentoGridDesign() {
         {/* 4. Real-World UI & OJT Projects - Spans 2 Columns (Bottom Row Center) */}
         <motion.div
           className="md:col-span-2 bg-zinc-900/90 border border-zinc-800 rounded-xl p-4 flex flex-col justify-between hover:border-purple-500/50 transition-colors group overflow-hidden"
-          initial={{ opacity: 0, y: 15 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ delay: 0.4 }}
+          initial={{ opacity: 1, y: 0 }}
           whileHover={{ scale: 0.995 }}
         >
           <div className="flex items-center justify-between mb-2">
@@ -277,10 +265,7 @@ export default function BentoGridDesign() {
         {/* 5. Commercial Graphic Art - Spans 2 Columns (Bottom Row Right) */}
         <motion.div
           className="md:col-span-2 bg-zinc-900/90 border border-zinc-800 rounded-xl p-4 flex flex-col justify-between hover:border-purple-500/50 transition-colors group overflow-hidden"
-          initial={{ opacity: 0, y: 15 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ delay: 0.5 }}
+          initial={{ opacity: 1, y: 0 }}
           whileHover={{ scale: 0.995 }}
         >
           <div className="flex items-center justify-between mb-2">
