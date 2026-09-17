@@ -22,26 +22,27 @@ export default function Hero() {
             {/* Hero Content Overlay */}
             <div className="relative z-10 flex-1 flex flex-col justify-center px-4 sm:px-6 max-w-6xl mx-auto space-y-6 sm:space-y-8 w-full my-auto py-6">
                 <div className="space-y-4 max-w-3xl">
-                    <h1 className="text-2xl sm:text-5xl md:text-6xl lg:text-7xl font-extrabold tracking-tight text-white uppercase leading-tight sm:leading-[1.05] drop-shadow-lg break-words">
-                        <FoldText
-                            text="RONDEV"
-                            splitBy="char"
-                            hinge="top"
-                            trigger="scroll"
-                            duration={0.35}
-                            stagger={0.02}
-                            delay={0.25}
-                            ease="power3.out"
-                            perspective={700}
-                            creaseShading={0.55}
-                            fontSize="inherit"
-                            fontWeight="inherit"
-                            color="#ffffff"
-                        />
-                        <br />
-                        <span className="text-purple-300/80 text-xl sm:text-4xl md:text-5xl lg:text-6xl">
+                    <h1 className="text-3xl sm:text-5xl md:text-6xl lg:text-7xl font-extrabold tracking-tight uppercase leading-tight sm:leading-[1.05] drop-shadow-lg break-words space-y-1">
+                        <div className="block text-white">
                             <FoldText
-                                text="ASPIRING DEVELOPER AND DESIGNER"
+                                text="RONDEV"
+                                splitBy="char"
+                                hinge="top"
+                                trigger="scroll"
+                                duration={0.35}
+                                stagger={0.02}
+                                delay={0.25}
+                                ease="power3.out"
+                                perspective={700}
+                                creaseShading={0.55}
+                                fontSize="inherit"
+                                fontWeight="inherit"
+                                color="#ffffff"
+                            />
+                        </div>
+                        <div className="block text-purple-400 font-extrabold tracking-tight">
+                            <FoldText
+                                text="DEVELOPER/DESIGNER"
                                 splitBy="char"
                                 hinge="top"
                                 trigger="scroll"
@@ -55,11 +56,11 @@ export default function Hero() {
                                 fontWeight="inherit"
                                 color="inherit"
                             />
-                        </span>
+                        </div>
                     </h1>
 
                     <p className="text-neutral-300 text-xs sm:text-base md:text-lg max-w-2xl leading-relaxed drop-shadow">
-                        Specializing in web applications and Funnel developer.
+                        Specializing in full-stack web applications and funnel development.
                     </p>
 
                     <div className="flex flex-col sm:flex-row flex-wrap gap-3 sm:gap-4 pt-2 w-full sm:w-auto">

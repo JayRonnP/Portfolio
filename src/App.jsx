@@ -5,7 +5,9 @@ import gsap from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
 import LandingPage from './components/landing/LandingPage'
 import Hero from './components/hero-section/hero'
+import ServicesSection from './components/services/ServicesSection'
 import HorizontalScrollSection from './components/works/HorizontalScrollSection'
+import AboutMeSection from './components/about/AboutMeSection'
 import ContactSection from './components/contact/contact'
 
 gsap.registerPlugin(ScrollTrigger)
@@ -79,9 +81,11 @@ export default function App() {
               <span>Jiron.dev</span>
             </a>
 
-            <nav className="flex items-center gap-4 sm:gap-8 text-[11px] sm:text-xs font-mono uppercase tracking-wider text-neutral-400">
+            <nav className="flex items-center gap-3 sm:gap-6 text-[11px] sm:text-xs font-mono uppercase tracking-wider text-neutral-400">
               <a href="#hero" className="hover:text-white transition-colors">Hero</a>
+              <a href="#services" className="hover:text-white transition-colors">Services</a>
               <a href="#horizontal-showcase" className="hover:text-white transition-colors">Showcase</a>
+              <a href="#about" className="hover:text-white transition-colors">About Me</a>
               <a href="#contacts" className="hover:text-white transition-colors">Contacts</a>
             </nav>
           </div>
@@ -90,18 +94,20 @@ export default function App() {
         {/* 1. Hero Section Component */}
         <Hero />
 
-        {/* 2. Horizontal Container Scroll Section */}
+        {/* 2. Services I Provide Section */}
+        <ServicesSection />
+
+        {/* 3. Showcase Section (Horizontal Container Scroll) */}
         <div id="horizontal-showcase">
           <HorizontalScrollSection />
         </div>
 
-        {/* 3. Contact Section Component */}
+        {/* 4. About Me Section Component */}
+        <AboutMeSection />
+
+        {/* 5. Contact Section Component */}
         <ContactSection />
 
-        {/* Footer */}
-        <footer className="border-t border-neutral-900 py-8 sm:py-12 px-4 sm:px-6 text-center text-[11px] sm:text-xs font-mono text-neutral-500 space-y-4">
-          <p>© {new Date().getFullYear()} Jiron.dev — Built with React, GSAP & Tailwind CSS</p>
-        </footer>
       </motion.div>
     </div>
   )

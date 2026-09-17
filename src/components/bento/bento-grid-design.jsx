@@ -22,20 +22,20 @@ function SingleCardImageViewer({ src, alt, fit = 'cover', bg = 'bg-black/60' }) 
   }
 
   return (
-    <div className={`relative w-full h-full min-h-[120px] rounded-lg overflow-hidden border border-zinc-800 ${bg} flex items-center justify-center group/card`}>
+    <div className={`relative w-full h-full min-h-[55px] sm:min-h-[70px] rounded-lg overflow-hidden border border-zinc-800 ${bg} flex items-center justify-center group/card`}>
       <img
         src={src}
         alt={alt}
         className={`w-full h-full transition-all duration-300 ${
-          currentFit === 'cover' ? 'object-cover' : 'object-contain p-2'
+          currentFit === 'cover' ? 'object-cover' : 'object-contain p-1'
         }`}
       />
       <button
         onClick={toggleFit}
         title={currentFit === 'cover' ? 'View Full Image' : 'Fill Container'}
-        className="absolute bottom-2 right-2 p-1.5 rounded-md bg-zinc-950/80 hover:bg-purple-900/90 text-white/70 hover:text-white border border-zinc-700/50 backdrop-blur-sm transition-all duration-200 opacity-0 group-hover/card:opacity-100 z-10"
+        className="absolute bottom-1.5 right-1.5 p-1 rounded bg-zinc-950/80 hover:bg-purple-900/90 text-white/70 hover:text-white border border-zinc-700/50 backdrop-blur-sm transition-all duration-200 opacity-0 group-hover/card:opacity-100 z-10"
       >
-        {currentFit === 'cover' ? <Minimize2 className="w-3.5 h-3.5" /> : <Maximize2 className="w-3.5 h-3.5" />}
+        {currentFit === 'cover' ? <Minimize2 className="w-3 h-3" /> : <Maximize2 className="w-3 h-3" />}
       </button>
     </div>
   )
@@ -60,7 +60,7 @@ function GraphicDesignShuffler() {
   }
 
   return (
-    <div className="relative w-full h-full min-h-[240px] rounded-xl overflow-hidden border border-zinc-800 bg-zinc-950/80 group">
+    <div className="relative w-full h-full min-h-[110px] sm:min-h-[140px] md:min-h-[155px] rounded-lg overflow-hidden border border-zinc-800 bg-zinc-950/80 group">
       <AnimatePresence mode="wait">
         <motion.img
           key={currentIndex}
@@ -70,32 +70,32 @@ function GraphicDesignShuffler() {
           animate={{ opacity: 1, scale: 1 }}
           exit={{ opacity: 0, scale: 0.95 }}
           transition={{ duration: 0.7, ease: "easeInOut" }}
-          className={`w-full h-full ${fit === 'cover' ? 'object-cover' : 'object-contain p-2'}`}
+          className={`w-full h-full ${fit === 'cover' ? 'object-cover' : 'object-contain p-1.5'}`}
         />
       </AnimatePresence>
 
-      <div className="absolute inset-x-0 bottom-0 p-3 bg-gradient-to-t from-black/90 via-black/50 to-transparent flex items-center justify-between z-10">
-        <div className="flex items-center gap-2">
-          <span className="w-2 h-2 rounded-full bg-purple-400 animate-pulse" />
-          <span className="text-[11px] font-mono text-zinc-300 font-medium tracking-wide">
+      <div className="absolute inset-x-0 bottom-0 p-1.5 bg-gradient-to-t from-black/90 via-black/50 to-transparent flex items-center justify-between z-10">
+        <div className="flex items-center gap-1.5">
+          <span className="w-1.5 h-1.5 rounded-full bg-purple-400 animate-pulse" />
+          <span className="text-[9px] sm:text-[10px] font-mono text-zinc-300 font-medium tracking-wide truncate">
             {titles[currentIndex]}
           </span>
         </div>
         <button
           onClick={toggleFit}
-          className="p-1.5 rounded-md bg-zinc-900/90 hover:bg-purple-900 text-white/70 hover:text-white border border-zinc-700/60 backdrop-blur-md transition-all duration-200"
+          className="p-1 rounded bg-zinc-900/90 hover:bg-purple-900 text-white/70 hover:text-white border border-zinc-700/60 backdrop-blur-md transition-all duration-200"
         >
-          {fit === 'cover' ? <Minimize2 className="w-3.5 h-3.5" /> : <Maximize2 className="w-3.5 h-3.5" />}
+          {fit === 'cover' ? <Minimize2 className="w-3 h-3" /> : <Maximize2 className="w-3 h-3" />}
         </button>
       </div>
 
-      <div className="absolute top-3 right-3 flex items-center gap-1.5 z-10">
+      <div className="absolute top-2 right-2 flex items-center gap-1 z-10">
         {images.map((_, idx) => (
           <button
             key={idx}
             onClick={() => setCurrentIndex(idx)}
-            className={`h-1.5 rounded-full transition-all duration-300 ${
-              idx === currentIndex ? "w-6 bg-purple-500" : "w-1.5 bg-zinc-700 hover:bg-zinc-500"
+            className={`h-1 rounded-full transition-all duration-300 ${
+              idx === currentIndex ? "w-4 bg-purple-500" : "w-1 bg-zinc-700 hover:bg-zinc-500"
             }`}
           />
         ))}
@@ -116,7 +116,7 @@ function OjtProjectShuffler() {
   }, [ojtImages.length])
 
   return (
-    <div className="relative w-full h-full min-h-[120px] rounded-lg overflow-hidden border border-zinc-800 bg-zinc-950 flex items-center justify-center group/ojt">
+    <div className="relative w-full h-full min-h-[55px] sm:min-h-[70px] rounded-lg overflow-hidden border border-zinc-800 bg-zinc-950 flex items-center justify-center group/ojt">
       <AnimatePresence mode="wait">
         <motion.img
           key={index}
@@ -130,7 +130,7 @@ function OjtProjectShuffler() {
         />
       </AnimatePresence>
 
-      <div className="absolute top-2 left-2 px-2 py-0.5 rounded-md bg-black/70 backdrop-blur-md border border-zinc-700/50 text-[10px] font-mono text-purple-300 font-semibold z-10">
+      <div className="absolute top-1.5 left-1.5 px-1.5 py-0.2 rounded bg-black/70 backdrop-blur-md border border-zinc-700/50 text-[8px] sm:text-[9px] font-mono text-purple-300 font-semibold z-10">
         PROJECT {index + 1} / {ojtImages.length}
       </div>
     </div>
@@ -145,17 +145,17 @@ function DesignToolBadges() {
   ]
 
   return (
-    <div className="flex flex-col gap-2.5 my-auto">
+    <div className="flex flex-col gap-1 sm:gap-1.5 my-auto">
       {tools.map((t, i) => (
         <span
           key={i}
-          className="px-3 py-2 rounded-xl bg-zinc-950/80 border border-zinc-800/80 text-zinc-200 text-xs font-mono flex items-center justify-between hover:border-purple-500/60 transition-all hover:scale-[1.02] cursor-default"
+          className="px-2 py-0.5 sm:py-1 rounded-md bg-zinc-950/80 border border-zinc-800/80 text-zinc-200 text-[10px] sm:text-[11px] font-mono flex items-center justify-between hover:border-purple-500/60 transition-all cursor-default"
         >
-          <div className="flex items-center gap-2">
-            <span className={`w-2.5 h-2.5 rounded-full bg-gradient-to-r ${t.color}`} />
-            <span className="font-medium text-sm text-white">{t.name}</span>
+          <div className="flex items-center gap-1.5">
+            <span className={`w-1.5 h-1.5 sm:w-2 sm:h-2 rounded-full bg-gradient-to-r ${t.color}`} />
+            <span className="font-medium text-[10px] sm:text-[11px] text-white">{t.name}</span>
           </div>
-          <span className="text-[10px] text-zinc-500 font-sans">SUITE</span>
+          <span className="text-[7px] sm:text-[8px] text-zinc-500 font-sans">SUITE</span>
         </span>
       ))}
     </div>
@@ -164,118 +164,103 @@ function DesignToolBadges() {
 
 export default function BentoGridDesign() {
   return (
-    <div className="max-w-[1400px] w-full mx-auto px-4 md:px-8 lg:px-12 py-6">
+    <div className="max-w-[1240px] w-full mx-auto px-2.5 sm:px-4 lg:px-6 py-1 sm:py-2">
       {/* Header */}
-      <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between mb-4 gap-3 border-b border-zinc-800/80 pb-3">
-        <div>
-          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-purple-950/60 border border-purple-800/50 text-purple-300 font-mono text-xs font-medium uppercase tracking-wider mb-1">
-            <Sparkles className="w-3.5 h-3.5 text-purple-400" />
-            <span>02 // CREATIVE PORTFOLIO</span>
-          </div>
-          <h2 className="text-xl sm:text-3xl font-extrabold text-white tracking-tight uppercase">
-            GRAPHIC & UI DESIGN
-          </h2>
-        </div>
-        <p className="text-zinc-400 text-xs font-mono max-w-md">
-          Visual identities, marketing graphics, vector art, and digital layout designs.
-        </p>
+      <div className="flex items-center justify-between mb-1.5 sm:mb-2 border-b border-zinc-800/80 pb-1">
+        <h2 className="text-base sm:text-xl md:text-2xl font-extrabold text-white tracking-tight uppercase">
+          GRAPHIC & UI DESIGN
+        </h2>
       </div>
 
       {/* Grid Layout (6 Columns Perfectly Proportioned) */}
-      <div className="grid grid-cols-1 md:grid-cols-6 gap-3 lg:gap-4">
+      <div className="grid grid-cols-1 md:grid-cols-6 gap-1.5 sm:gap-2 lg:gap-2.5">
         
         {/* 1. Main Graphic Showcase - Spans 4 Columns & 2 Rows */}
         <motion.div
-          className="md:col-span-4 md:row-span-2 bg-zinc-900/90 border border-zinc-800 rounded-xl p-4 flex flex-col justify-between hover:border-purple-500/50 transition-colors group overflow-hidden"
+          className="md:col-span-4 md:row-span-2 bg-zinc-900/90 border border-zinc-800 rounded-lg p-2 sm:p-2.5 flex flex-col justify-between hover:border-purple-500/50 transition-colors group overflow-hidden"
           initial={{ opacity: 1, y: 0 }}
           whileHover={{ scale: 0.995 }}
         >
-          <div className="flex items-center justify-between mb-2">
-            <h3 className="font-serif text-base text-white flex items-center gap-2 font-semibold">
-              <Layout className="w-4 h-4 text-purple-400" />
+          <div className="flex items-center justify-between mb-1">
+            <h3 className="font-serif text-xs sm:text-sm text-white flex items-center gap-1.5 font-semibold">
+              <Layout className="w-3.5 h-3.5 text-purple-400" />
               Graphic Showcase
             </h3>
-            <span className="text-[10px] font-mono text-zinc-500 uppercase">ARTWORK</span>
+            <span className="text-[8px] sm:text-[9px] font-mono text-zinc-500 uppercase">ARTWORK</span>
           </div>
 
           <GraphicDesignShuffler />
 
-          <p className="text-zinc-400 text-xs mt-2 font-mono">
+          <p className="text-zinc-400 text-[10px] mt-1 font-mono">
             Creative poster art, brand identity graphics, and custom illustration assets.
           </p>
         </motion.div>
 
-        {/* 2. Design Tools & Stack - Spans 2 Columns & 2 Rows (Top Right Full Height) */}
+        {/* 2. Design Tools & Stack - Spans 2 Columns & 2 Rows */}
         <motion.div
-          className="md:col-span-2 md:row-span-2 bg-zinc-900/90 border border-zinc-800 rounded-xl p-4 flex flex-col justify-between hover:border-purple-500/50 transition-colors group cursor-pointer"
+          className="md:col-span-2 md:row-span-2 bg-zinc-900/90 border border-zinc-800 rounded-lg p-2 sm:p-2.5 flex flex-col justify-between hover:border-purple-500/50 transition-colors group cursor-pointer"
           initial={{ opacity: 1, y: 0 }}
           whileHover={{ scale: 0.995 }}
         >
           <div>
-            <h3 className="font-serif text-base text-white flex items-center gap-2 font-semibold mb-0.5">
-              <Palette className="w-4 h-4 text-purple-400" />
-              Design Tools & Stack
+            <h3 className="font-serif text-xs sm:text-sm text-white flex items-center gap-1.5 font-semibold mb-0.5">
+              <Palette className="w-3.5 h-3.5 text-purple-400" />
+              Design Tools
             </h3>
-            <p className="text-zinc-400 text-[11px] mb-3 font-mono">PRIMARY CREATIVE SUITE</p>
+            <p className="text-zinc-400 text-[9px] sm:text-[10px] mb-1 font-mono">PRIMARY SUITE</p>
           </div>
 
           <DesignToolBadges />
 
-          <p className="text-zinc-500 text-[11px] font-mono mt-3 border-t border-zinc-800/80 pt-2">
-            Core workflow tools for layout design, marketing assets, and brand management.
+          <p className="text-zinc-500 text-[8px] sm:text-[9px] font-mono mt-1 border-t border-zinc-800/80 pt-0.5">
+            Core workflow tools for layout design and branding.
           </p>
         </motion.div>
 
-        {/* 3. Poster & Editorial Design - Spans 2 Columns (Bottom Row Left) */}
+        {/* 3. Poster & Editorial Design - Spans 2 Columns */}
         <motion.div
-          className="md:col-span-2 bg-zinc-900/90 border border-zinc-800 rounded-xl p-4 flex flex-col justify-between hover:border-purple-500/50 transition-colors group overflow-hidden"
+          className="md:col-span-2 bg-zinc-900/90 border border-zinc-800 rounded-lg p-2 sm:p-2.5 flex flex-col justify-between hover:border-purple-500/50 transition-colors group overflow-hidden"
           initial={{ opacity: 1, y: 0 }}
           whileHover={{ scale: 0.995 }}
         >
-          <div className="flex items-center justify-between mb-2">
-            <h3 className="font-serif text-base text-white flex items-center gap-2 font-semibold">
-              <Layers className="w-4 h-4 text-purple-400" />
-              Poster & Editorial Art
+          <div className="flex items-center justify-between mb-1">
+            <h3 className="font-serif text-xs text-white flex items-center gap-1.5 font-semibold">
+              <Layers className="w-3.5 h-3.5 text-purple-400" />
+              Poster Art
             </h3>
-            <span className="text-[10px] font-mono text-zinc-500">POSTER</span>
+            <span className="text-[8px] font-mono text-zinc-500">POSTER</span>
           </div>
 
           <SingleCardImageViewer src={lodzPoster} alt="Lodz Poster Art" fit="cover" />
         </motion.div>
 
-        {/* 4. Real-World UI & OJT Projects - Spans 2 Columns (Bottom Row Center) */}
+        {/* 4. Real-World UI & OJT Projects - Spans 2 Columns */}
         <motion.div
-          className="md:col-span-2 bg-zinc-900/90 border border-zinc-800 rounded-xl p-4 flex flex-col justify-between hover:border-purple-500/50 transition-colors group overflow-hidden"
+          className="md:col-span-2 bg-zinc-900/90 border border-zinc-800 rounded-lg p-2 sm:p-2.5 flex flex-col justify-between hover:border-purple-500/50 transition-colors group overflow-hidden"
           initial={{ opacity: 1, y: 0 }}
           whileHover={{ scale: 0.995 }}
         >
-          <div className="flex items-center justify-between mb-2">
-            <div>
-              <h3 className="font-serif text-base text-white flex items-center gap-2 font-semibold">
-                <Eye className="w-4 h-4 text-purple-400" />
-                UI & Internship
-              </h3>
-              <p className="text-zinc-400 text-[11px] font-mono">OJT INTERFACE DESIGNS</p>
-            </div>
+          <div className="flex items-center justify-between mb-1">
+            <h3 className="font-serif text-xs text-white flex items-center gap-1.5 font-semibold">
+              <Eye className="w-3.5 h-3.5 text-purple-400" />
+              UI & Internship
+            </h3>
           </div>
 
           <OjtProjectShuffler />
         </motion.div>
 
-        {/* 5. Commercial Graphic Art - Spans 2 Columns (Bottom Row Right) */}
+        {/* 5. Commercial Graphic Art - Spans 2 Columns */}
         <motion.div
-          className="md:col-span-2 bg-zinc-900/90 border border-zinc-800 rounded-xl p-4 flex flex-col justify-between hover:border-purple-500/50 transition-colors group overflow-hidden"
+          className="md:col-span-2 bg-zinc-900/90 border border-zinc-800 rounded-lg p-2 sm:p-2.5 flex flex-col justify-between hover:border-purple-500/50 transition-colors group overflow-hidden"
           initial={{ opacity: 1, y: 0 }}
           whileHover={{ scale: 0.995 }}
         >
-          <div className="flex items-center justify-between mb-2">
-            <div>
-              <h3 className="font-serif text-base text-white flex items-center gap-2 font-semibold">
-                <Layout className="w-4 h-4 text-purple-400" />
-                Commercial Graphic Art
-              </h3>
-              <p className="text-zinc-400 text-[11px] font-mono">RETAIL BANNERS</p>
-            </div>
+          <div className="flex items-center justify-between mb-1">
+            <h3 className="font-serif text-xs text-white flex items-center gap-1.5 font-semibold">
+              <Layout className="w-3.5 h-3.5 text-purple-400" />
+              Commercial Art
+            </h3>
           </div>
 
           <SingleCardImageViewer src={sellingCar} alt="Selling Car Graphic Design" fit="cover" />
