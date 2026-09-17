@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import { AnimatePresence, motion } from 'framer-motion'
 import { Terminal } from 'lucide-react'
 import LandingPage from './components/landing/LandingPage'
@@ -9,6 +9,24 @@ import ContactSection from './components/contact/contact'
 export default function App() {
   const [hasEntered, setHasEntered] = useState(false)
 
+  // Lock body & document scroll until the user enters from the Landing Page
+  useEffect(() => {
+    if (!hasEntered) {
+      document.body.style.overflow = 'hidden'
+      document.documentElement.style.overflow = 'hidden'
+      document.body.style.touchAction = 'none'
+    } else {
+      document.body.style.overflow = ''
+      document.documentElement.style.overflow = ''
+      document.body.style.touchAction = ''
+    }
+    return () => {
+      document.body.style.overflow = ''
+      document.documentElement.style.overflow = ''
+      document.body.style.touchAction = ''
+    }
+  }, [hasEntered])
+
   return (
     <div className="min-h-screen bg-black text-neutral-100 font-sans selection:bg-neutral-800 selection:text-white relative overflow-x-hidden">
       {/* 0. Pre-Hero Interactive Landing Page Overlay */}
@@ -16,9 +34,14 @@ export default function App() {
         {!hasEntered && (
           <motion.div
             key="landing-page"
-            initial={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: '-100%', transition: { duration: 0.8, ease: [0.76, 0, 0.24, 1] } }}
-            className="fixed inset-0 z-[100]"
+            initial={{ opacity: 1, y: 0, scale: 1 }}
+            exit={{
+              opacity: 0,
+              y: '-100%',
+              scale: 0.97,
+              transition: { duration: 1.1, ease: [0.76, 0, 0.24, 1] }
+            }}
+            className="fixed inset-0 z-[100] touch-none"
           >
             <LandingPage onEnter={() => setHasEntered(true)} />
           </motion.div>
@@ -27,9 +50,14 @@ export default function App() {
 
       {/* Main Portfolio Content (revealed after entering) */}
       <motion.div
-        initial={{ opacity: 0 }}
-        animate={{ opacity: hasEntered ? 1 : 0 }}
-        transition={{ duration: 0.5, delay: 0.3 }}
+        initial={{ opacity: 0, scale: 1.03, filter: 'blur(8px)' }}
+        animate={{
+          opacity: hasEntered ? 1 : 0,
+          scale: hasEntered ? 1 : 1.03,
+          filter: hasEntered ? 'blur(0px)' : 'blur(8px)'
+        }}
+        transition={{ duration: 1.1, ease: [0.76, 0, 0.24, 1], delay: 0.15 }}
+        className={hasEntered ? '' : 'pointer-events-none aria-hidden="true"'}
       >
         {/* Sticky Header */}
         <header className="border-b border-neutral-900 sticky top-0 z-50 bg-black/80 backdrop-blur-md">

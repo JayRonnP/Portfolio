@@ -1,42 +1,25 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect } from 'react'
 import RotatingText from '@/components/ui/RotatingText'
 import './LandingPage.css'
 
 export default function LandingPage({ onEnter }) {
-  const [isHovered, setIsHovered] = useState(false)
-
-  // Web Audio API click sound for subtle tactile feedback
-  const playEnterSound = () => {
-    try {
-      const AudioCtx = window.AudioContext || window.webkitAudioContext
-      if (!AudioCtx) return
-      const ctx = new AudioCtx()
-      const osc = ctx.createOscillator()
-      const gain = ctx.createGain()
-
-      osc.type = 'sine'
-      osc.frequency.setValueAtTime(320, ctx.currentTime)
-      osc.frequency.exponentialRampToValueAtTime(840, ctx.currentTime + 0.15)
-
-      gain.gain.setValueAtTime(0.12, ctx.currentTime)
-      gain.gain.exponentialRampToValueAtTime(0.01, ctx.currentTime + 0.2)
-
-      osc.connect(gain)
-      gain.connect(ctx.destination)
-
-      osc.start()
-      osc.stop(ctx.currentTime + 0.2)
-    } catch (e) {
-      // Audio context fallback
-    }
-  }
+  const landingTexts = ["WELCOME", "YOUR BRAND", "BUILT", "TO BE NOTICED"]
 
   const handleEnter = () => {
-    playEnterSound()
     if (onEnter) onEnter()
   }
 
-  // Keyboard shortcut (Enter or Space) to enter portfolio
+  // Handle auto-transition when the final text ("TO BE NOTICED") appears
+  const handleNextText = (index) => {
+    if (index === landingTexts.length - 1) {
+      // Allow "TO BE NOTICED" to show for 2 seconds, then seamlessly transition
+      setTimeout(() => {
+        handleEnter()
+      }, 2000)
+    }
+  }
+
+  // Optional keyboard shortcut (Enter or Space) for immediate skip
   useEffect(() => {
     const handleKeyDown = (e) => {
       if (e.key === 'Enter' || e.key === ' ') {
@@ -49,33 +32,23 @@ export default function LandingPage({ onEnter }) {
   }, [onEnter])
 
   return (
-    <div className="fixed inset-0 z-[100] bg-black text-white flex flex-col items-center justify-center p-6 overflow-hidden select-none">
-
-      {/* Pure Minimalist Landing Content - Rotating Text & Enter Button Only */}
-      <main className="relative z-10 max-w-5xl mx-auto text-center flex flex-col items-center justify-center space-y-12 w-full">
-
-        {/* Modern Staggered Rotating Text Animation */}
+    <div
+      onTouchMove={(e) => e.preventDefault()}
+      className="fixed inset-0 z-[100] bg-black text-white flex flex-col items-center justify-center p-6 overflow-hidden select-none touch-none"
+    >
+      {/* Pure Minimalist Landing Content - Rotating Text Auto-Sequence */}
+      <main className="relative z-10 max-w-5xl mx-auto text-center flex flex-col items-center justify-center w-full">
         <div className="w-full flex justify-center items-center min-h-[140px] sm:min-h-[180px]">
           <RotatingText
-            texts={["WELCOME", "YOUR BRAND", "BUILT", "TO BE NOTICED"]}
+            texts={landingTexts}
             mainClassName="text-4xl sm:text-6xl md:text-7xl lg:text-8xl font-black uppercase tracking-tight text-white justify-center text-center drop-shadow-2xl"
             staggerFrom="first"
             staggerDuration={0.035}
             rotationInterval={2200}
+            loop={false}
+            onNext={handleNextText}
             transition={{ type: 'spring', damping: 25, stiffness: 300 }}
           />
-        </div>
-
-        {/* Minimalist Pure White CTA Enter Button Only */}
-        <div className="flex flex-col items-center w-full sm:w-auto">
-          <button
-            onClick={handleEnter}
-            onMouseEnter={() => setIsHovered(true)}
-            onMouseLeave={() => setIsHovered(false)}
-            className="group relative inline-flex items-center justify-center w-full sm:w-auto px-10 py-4 rounded-xl btn-minimal-white font-mono text-xs font-bold tracking-widest uppercase cursor-pointer active:scale-95"
-          >
-            <span>ENTER PORTFOLIO</span>
-          </button>
         </div>
       </main>
     </div>
