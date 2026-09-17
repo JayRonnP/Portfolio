@@ -16,8 +16,8 @@ export default function AboutMeSection() {
     },
     {
       num: '03',
-      title: 'Motion & Interactivity',
-      desc: 'Leveraging GSAP ScrollTrigger and WebGL physics to make web applications feel responsive, fluid, and alive.'
+      title: 'Curiosity & Problem Solving',
+      desc: 'Driven by curiosity—when facing a challenge, I always dive deep into research to find the right answers and love resolving client concerns effectively.'
     }
   ]
 
