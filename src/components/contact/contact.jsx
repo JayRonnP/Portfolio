@@ -1,7 +1,8 @@
 import React, { useEffect, useRef, useState } from 'react'
 import gsap from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
-import { Mail, Send, CheckCircle2, Loader2, AlertCircle, ShieldCheck } from 'lucide-react'
+import { Mail, Send, CheckCircle2, Loader2, AlertCircle, ShieldCheck, Download, FileText } from 'lucide-react'
+import cvPdf from '../../assets/Sing.pdf'
 
 gsap.registerPlugin(ScrollTrigger)
 
@@ -186,6 +187,22 @@ export default function ContactSection() {
                 <LinkedinIcon />
               </a>
             </div>
+          </div>
+
+          {/* Plain & Simple CV Download Container */}
+          <div className="contact-pop-item p-6 rounded-2xl bg-neutral-950 border border-neutral-900 space-y-3">
+            <div className="text-white font-semibold text-sm">Curriculum Vitae</div>
+            <a
+              href={cvPdf}
+              download="Jiron_CV.pdf"
+              className="w-full py-3 px-4 bg-neutral-900 border border-neutral-800 hover:border-neutral-700 text-white font-medium text-sm rounded-xl transition-all flex items-center justify-between group cursor-pointer"
+            >
+              <div className="flex items-center gap-2.5">
+                <FileText className="w-4 h-4 text-purple-400" />
+                <span>Download CV</span>
+              </div>
+              <Download className="w-4 h-4 text-neutral-400 group-hover:text-white transition-colors" />
+            </a>
           </div>
         </div>
 
