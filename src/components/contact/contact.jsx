@@ -1,7 +1,7 @@
-import React, { useEffect, useRef } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 import gsap from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
-import { Mail, MapPin, Send } from 'lucide-react'
+import { Mail, Send, CheckCircle2, Loader2, AlertCircle, ShieldCheck } from 'lucide-react'
 
 gsap.registerPlugin(ScrollTrigger)
 
@@ -35,8 +35,37 @@ function LinkedinIcon(props) {
 
 export default function ContactSection() {
   const contactsRef = useRef(null)
+  const [formData, setFormData] = useState({ name: '', email: '', message: '' })
+  const [status, setStatus] = useState('idle') // 'idle' | 'submitting' | 'success' | 'limited'
+  const [userIp, setUserIp] = useState(null)
+  const [isLimited, setIsLimited] = useState(false)
 
   useEffect(() => {
+    // Fetch user IP address and check submission limit
+    const checkSubmissionLimit = async () => {
+      let currentIp = 'unknown_ip'
+      try {
+        const res = await fetch('https://api.ipify.org?format=json')
+        const data = await res.json()
+        if (data.ip) {
+          currentIp = data.ip
+          setUserIp(data.ip)
+        }
+      } catch (e) {
+        console.log('IP fetch notice:', e)
+      }
+
+      const hasSubmittedBrowser = localStorage.getItem('portfolio_contact_submitted')
+      const hasSubmittedIp = localStorage.getItem(`portfolio_contact_ip_${currentIp}`)
+
+      if (hasSubmittedBrowser || hasSubmittedIp) {
+        setIsLimited(true)
+        setStatus('limited')
+      }
+    }
+
+    checkSubmissionLimit()
+
     const ctx = gsap.context(() => {
       if (contactsRef.current) {
         gsap.from(contactsRef.current, {
@@ -69,13 +98,56 @@ export default function ContactSection() {
     return () => ctx.revert()
   }, [])
 
+  const handleChange = (e) => {
+    setFormData({ ...formData, [e.target.name]: e.target.value })
+  }
+
+  const handleSubmit = async (e) => {
+    e.preventDefault()
+    if (isLimited) return
+    if (!formData.name || !formData.email || !formData.message) return
+
+    setStatus('submitting')
+
+    try {
+      const formPayload = new FormData(e.target)
+      formPayload.append('access_key', '787b0bff-2654-4698-9c11-f473a02a61aa')
+      if (userIp) {
+        formPayload.append('user_ip', userIp)
+      }
+
+      const response = await fetch('https://api.web3forms.com/submit', {
+        method: 'POST',
+        body: formPayload
+      })
+
+      const data = await response.json()
+
+      if (data.success) {
+        // Lock submission for this browser session AND this IP address
+        localStorage.setItem('portfolio_contact_submitted', 'true')
+        if (userIp) {
+          localStorage.setItem(`portfolio_contact_ip_${userIp}`, 'true')
+        }
+
+        setIsLimited(true)
+        setStatus('success')
+        setFormData({ name: '', email: '', message: '' })
+      } else {
+        console.error('Web3Forms Error:', data)
+        setStatus('error')
+      }
+    } catch (err) {
+      console.error('Submission Error:', err)
+      setStatus('error')
+    }
+  }
+
   return (
     <section id="contacts" ref={contactsRef} className="py-24 px-6 max-w-6xl mx-auto space-y-12">
       {/* Section Header */}
       <div className="contact-pop-item space-y-4 border-b border-neutral-900 pb-8 text-center max-w-2xl mx-auto">
-        <div className="text-xs font-mono text-neutral-500 uppercase tracking-widest">
-          01 // GET IN TOUCH
-        </div>
+
         <h2 className="text-3xl sm:text-5xl font-extrabold tracking-tight text-white uppercase">
           Let's Work Together
         </h2>
@@ -93,10 +165,13 @@ export default function ContactSection() {
               <Mail className="w-5 h-5 text-neutral-400" />
               <span>Email Contact</span>
             </div>
-            <p className="text-neutral-400 text-sm font-mono">jiron.panday45@gmail.com</p>
+            <a
+              href="mailto:jiron.panday45@gmail.com"
+              className="text-neutral-400 hover:text-purple-300 text-sm font-mono transition-colors block"
+            >
+              jiron.panday45@gmail.com
+            </a>
           </div>
-
-
 
           <div className="contact-pop-item p-6 rounded-2xl bg-neutral-950 border border-neutral-900 space-y-4">
             <div className="text-white font-semibold text-sm">Social Profiles</div>
@@ -116,14 +191,19 @@ export default function ContactSection() {
 
         {/* Right Column: Contact Form */}
         <div className="lg:col-span-7 contact-pop-item p-8 rounded-2xl bg-neutral-950 border border-neutral-900 space-y-6">
-          <form onSubmit={(e) => e.preventDefault()} className="space-y-4">
+          <form onSubmit={handleSubmit} className="space-y-4">
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
               <div className="space-y-2">
                 <label className="text-xs font-mono text-neutral-400 uppercase">Your Name</label>
                 <input
                   type="text"
+                  name="name"
+                  value={formData.name}
+                  onChange={handleChange}
+                  disabled={isLimited}
+                  required
                   placeholder="Alex Morgan"
-                  className="w-full px-4 py-3 bg-neutral-900 border border-neutral-800 rounded-xl text-white placeholder-neutral-600 focus:outline-none focus:border-neutral-600 text-sm transition-all"
+                  className="w-full px-4 py-3 bg-neutral-900 border border-neutral-800 rounded-xl text-white placeholder-neutral-600 focus:outline-none focus:border-purple-500 disabled:opacity-40 disabled:cursor-not-allowed text-sm transition-all"
                 />
               </div>
 
@@ -131,8 +211,13 @@ export default function ContactSection() {
                 <label className="text-xs font-mono text-neutral-400 uppercase">Your Email</label>
                 <input
                   type="email"
+                  name="email"
+                  value={formData.email}
+                  onChange={handleChange}
+                  disabled={isLimited}
+                  required
                   placeholder="alex@example.com"
-                  className="w-full px-4 py-3 bg-neutral-900 border border-neutral-800 rounded-xl text-white placeholder-neutral-600 focus:outline-none focus:border-neutral-600 text-sm transition-all"
+                  className="w-full px-4 py-3 bg-neutral-900 border border-neutral-800 rounded-xl text-white placeholder-neutral-600 focus:outline-none focus:border-purple-500 disabled:opacity-40 disabled:cursor-not-allowed text-sm transition-all"
                 />
               </div>
             </div>
@@ -141,21 +226,62 @@ export default function ContactSection() {
               <label className="text-xs font-mono text-neutral-400 uppercase">Project Message</label>
               <textarea
                 rows={4}
+                name="message"
+                value={formData.message}
+                onChange={handleChange}
+                disabled={isLimited}
+                required
                 placeholder="Tell me about your project or inquiry..."
-                className="w-full px-4 py-3 bg-neutral-900 border border-neutral-800 rounded-xl text-white placeholder-neutral-600 focus:outline-none focus:border-neutral-600 text-sm transition-all resize-none"
+                className="w-full px-4 py-3 bg-neutral-900 border border-neutral-800 rounded-xl text-white placeholder-neutral-600 focus:outline-none focus:border-purple-500 disabled:opacity-40 disabled:cursor-not-allowed text-sm transition-all resize-none"
               />
             </div>
 
             <button
               type="submit"
-              className="w-full py-3.5 bg-white text-black font-semibold text-sm rounded-xl hover:bg-neutral-200 transition-all flex items-center justify-center gap-2 cursor-pointer"
+              disabled={status === 'submitting' || isLimited}
+              className="w-full py-3.5 bg-white text-black font-semibold text-sm rounded-xl hover:bg-neutral-200 disabled:opacity-50 disabled:cursor-not-allowed transition-all flex items-center justify-center gap-2 cursor-pointer"
             >
-              <span>Send Message</span>
-              <Send className="w-4 h-4" />
+              {status === 'submitting' ? (
+                <>
+                  <Loader2 className="w-4 h-4 animate-spin text-black" />
+                  <span>Sending Message...</span>
+                </>
+              ) : isLimited ? (
+                <>
+                  <ShieldCheck className="w-4 h-4 text-purple-600" />
+                  <span>Message Already Submitted</span>
+                </>
+              ) : status === 'success' ? (
+                <>
+                  <CheckCircle2 className="w-4 h-4 text-emerald-600" />
+                  <span>Message Sent Successfully!</span>
+                </>
+              ) : (
+                <>
+                  <span>Send Message</span>
+                  <Send className="w-4 h-4" />
+                </>
+              )}
             </button>
+
+            {status === 'success' && (
+              <p className="text-xs text-emerald-400 font-mono text-center pt-2 flex items-center justify-center gap-1.5">
+                <CheckCircle2 className="w-3.5 h-3.5 text-emerald-400" />
+                <span>Thank you! Your message has been sent to jiron.panday45@gmail.com.</span>
+              </p>
+            )}
+
+            {status === 'error' && (
+              <p className="text-xs text-rose-400 font-mono text-center pt-2 flex items-center justify-center gap-1.5">
+                <AlertCircle className="w-3.5 h-3.5 text-rose-400" />
+                <span>Something went wrong. Please try again or email directly.</span>
+              </p>
+            )}
           </form>
         </div>
       </div>
     </section>
   )
 }
+
+
