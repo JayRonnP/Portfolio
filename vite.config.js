@@ -1,6 +1,7 @@
 import react from '@vitejs/plugin-react'
 import tailwindcss from '@tailwindcss/vite'
 import { defineConfig } from 'vite'
+import path from 'path'
 
 // Configure Vite to launch Google Chrome instead of Microsoft Edge
 process.env.BROWSER = 'chrome'
@@ -11,6 +12,11 @@ export default defineConfig({
     react(),
     tailwindcss(),
   ],
+  resolve: {
+    alias: {
+      '@': path.resolve(__dirname, './src'),
+    },
+  },
   server: {
     open: true,
   },

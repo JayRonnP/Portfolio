@@ -7,11 +7,11 @@ import './hero.css'
 
 export default function Hero() {
     return (
-        <section id="hero" className="relative w-full min-h-[calc(100vh-4rem)] h-[calc(100vh-4rem)] flex flex-col justify-between overflow-hidden bg-[#120F17]">
+        <section id="hero" className="relative w-full min-h-[calc(100vh-4rem)] flex flex-col justify-between overflow-hidden bg-[#120F17] py-6 sm:py-10 md:py-0">
             {/* 3D Ballpit Background Layer */}
             <div className="absolute inset-0 z-0 pointer-events-auto">
                 <Ballpit
-                    count={100}
+                    count={80}
                     gravity={0.01}
                     friction={0.9975}
                     wallBounce={0.95}
@@ -20,9 +20,9 @@ export default function Hero() {
             </div>
 
             {/* Hero Content Overlay */}
-            <div className="relative z-10 flex-1 flex flex-col justify-center px-6 max-w-6xl mx-auto space-y-8 w-full py-6">
+            <div className="relative z-10 flex-1 flex flex-col justify-center px-4 sm:px-6 max-w-6xl mx-auto space-y-6 sm:space-y-8 w-full my-auto py-6">
                 <div className="space-y-4 max-w-3xl">
-                    <h1 className="text-4xl sm:text-6xl md:text-7xl font-extrabold tracking-tight text-white uppercase leading-[1.05] drop-shadow-lg">
+                    <h1 className="text-2xl sm:text-5xl md:text-6xl lg:text-7xl font-extrabold tracking-tight text-white uppercase leading-tight sm:leading-[1.05] drop-shadow-lg break-words">
                         <FoldText
                             text="JIRON PANDAY"
                             splitBy="char"
@@ -39,7 +39,7 @@ export default function Hero() {
                             color="#ffffff"
                         />
                         <br />
-                        <span className="text-purple-300/80">
+                        <span className="text-purple-300/80 text-xl sm:text-4xl md:text-5xl lg:text-6xl">
                             <FoldText
                                 text="ASPIRING DESIGNER & DEVELOPER"
                                 splitBy="char"
@@ -58,14 +58,14 @@ export default function Hero() {
                         </span>
                     </h1>
 
-                    <p className="text-neutral-300 text-sm sm:text-base md:text-lg max-w-2xl leading-relaxed drop-shadow">
+                    <p className="text-neutral-300 text-xs sm:text-base md:text-lg max-w-2xl leading-relaxed drop-shadow">
                         Specializing in high-performance web applications, Funnel design, and modern UI engineering.
                     </p>
 
-                    <div className="flex flex-wrap gap-4 pt-2">
+                    <div className="flex flex-col sm:flex-row flex-wrap gap-3 sm:gap-4 pt-2 w-full sm:w-auto">
                         <a
                             href="#works"
-                            className="px-6 py-3 bg-white text-black font-semibold text-sm rounded-xl hover:bg-neutral-200 transition-all flex items-center gap-2 shadow-xl hover:scale-105"
+                            className="w-full sm:w-auto justify-center px-6 py-3 bg-white text-black font-semibold text-xs sm:text-sm rounded-xl hover:bg-neutral-200 transition-all flex items-center gap-2 shadow-xl hover:scale-105"
                         >
                             <span>Explore Works</span>
                             <ArrowDown className="w-4 h-4" />
@@ -73,7 +73,7 @@ export default function Hero() {
 
                         <a
                             href="#contacts"
-                            className="px-6 py-3 bg-purple-950/80 backdrop-blur-md text-white font-semibold text-sm rounded-xl border border-purple-800/60 hover:bg-purple-900/80 transition-all flex items-center gap-2 shadow-xl hover:scale-105"
+                            className="w-full sm:w-auto justify-center px-6 py-3 bg-purple-950/80 backdrop-blur-md text-white font-semibold text-xs sm:text-sm rounded-xl border border-purple-800/60 hover:bg-purple-900/80 transition-all flex items-center gap-2 shadow-xl hover:scale-105"
                         >
                             <span>Get In Touch</span>
                             <ArrowUpRight className="w-4 h-4" />
@@ -83,7 +83,7 @@ export default function Hero() {
             </div>
 
             {/* Static Non-Clickable Scroll Down Indicator */}
-            <div className="relative z-10 pb-6 flex justify-center">
+            <div className="relative z-10 pb-4 sm:pb-6 flex justify-center">
                 <ScrollDownIcon label="SCROLL DOWN" />
             </div>
         </section>

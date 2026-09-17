@@ -1,0 +1,15 @@
+/* LandingPage.css - All Black & Pure White Minimalist Theme */
+
+.btn-minimal-white {
+  background-color: #ffffff;
+  color: #000000;
+  border: 1px solid #ffffff;
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.btn-minimal-white:hover {
+  background-color: #e5e5e5;
+  color: #000000;
+  transform: translateY(-2px);
+  box-shadow: 0 10px 30px rgba(255, 255, 255, 0.15);
+}
