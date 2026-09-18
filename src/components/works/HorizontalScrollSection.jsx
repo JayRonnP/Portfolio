@@ -15,11 +15,13 @@ export default function HorizontalScrollSection() {
   const containerRef = useRef(null)
 
   useEffect(() => {
-    const ctx = gsap.context(() => {
+    const mm = gsap.matchMedia()
+
+    // Desktop/Tablet horizontal pin & scroll animation (min-width: 768px)
+    mm.add("(min-width: 768px)", () => {
       const sections = gsap.utils.toArray('.horizontal-panel')
       if (!sections.length || !containerRef.current) return
 
-      // Main horizontal pin & scroll tween
       const scrollTween = gsap.to(sections, {
         xPercent: -100 * (sections.length - 1),
         ease: 'none',
@@ -48,20 +50,20 @@ export default function HorizontalScrollSection() {
           },
         })
       })
-    }, containerRef)
+    })
 
-    return () => ctx.revert()
+    return () => mm.revert()
   }, [])
 
   return (
     <div className="w-full bg-black text-white">
-      {/* Main Pinned Container */}
+      {/* Main Container: Native horizontal touch swipe on mobile, GSAP pinned on desktop */}
       <div
         ref={containerRef}
-        className="w-full h-screen overflow-hidden flex flex-nowrap relative bg-neutral-950 border-y border-neutral-900"
+        className="w-full h-[85vh] sm:h-[90vh] md:h-screen overflow-x-auto md:overflow-hidden flex flex-nowrap snap-x snap-mandatory relative bg-neutral-950 border-y border-neutral-900 scrollbar-none"
       >
         {/* Panel 1: Bold Hero with WarpText */}
-        <section className="horizontal-panel w-full h-full flex-shrink-0 flex items-center justify-center p-4 sm:p-8 md:p-16 border-r border-neutral-900/60 bg-gradient-to-br from-neutral-950 via-purple-950/20 to-neutral-950">
+        <section className="horizontal-panel snap-center w-[92vw] sm:w-[85vw] md:w-full h-full flex-shrink-0 flex items-center justify-center p-4 sm:p-8 md:p-16 border-r border-neutral-900/60 bg-gradient-to-br from-neutral-950 via-purple-950/20 to-neutral-950">
           <div className="max-w-4xl w-full space-y-4 sm:space-y-6 text-center sm:text-left flex flex-col items-center sm:items-start px-2">
             <div className="w-full">
               <WarpText
@@ -84,20 +86,21 @@ export default function HorizontalScrollSection() {
             </div>
             <div className="inline-flex items-center gap-2 sm:gap-3 text-[11px] sm:text-xs font-mono text-purple-300/80 pt-2">
               <ArrowRight className="w-4 h-4 sm:w-5 sm:h-5 text-purple-400 animate-pulse" />
-              <span>Keep scrolling</span>
+              <span className="hidden md:inline">Keep scrolling</span>
+              <span className="inline md:hidden">Swipe left to explore</span>
             </div>
           </div>
         </section>
 
         {/* Panel 2: Interactive DriftWall Gallery */}
-        <section className="horizontal-panel w-full h-full flex-shrink-0 relative overflow-hidden border-r border-neutral-900/60">
+        <section className="horizontal-panel snap-center w-[92vw] sm:w-[85vw] md:w-full h-full flex-shrink-0 relative overflow-hidden border-r border-neutral-900/60">
           <div className="w-full h-full">
             <DriftWall />
           </div>
         </section>
 
         {/* Panel 3: Horizontal Interactive Text Reveal */}
-        <section className="horizontal-panel Horizontal w-full h-full flex-shrink-0 flex items-center overflow-hidden border-r border-neutral-900/60 bg-neutral-950">
+        <section className="horizontal-panel snap-center w-[92vw] sm:w-[85vw] md:w-full h-full flex-shrink-0 flex items-center overflow-hidden border-r border-neutral-900/60 bg-neutral-950">
           <div className="container mx-auto px-4 sm:px-6">
             <h3 className="Horizontal__text heading-xl text-2xl sm:text-5xl md:text-7xl lg:text-8xl font-bold flex flex-wrap gap-x-[0.3em] gap-y-2 text-white">
               {PANEL3_TEXT.split(' ').map((word, wIdx) => (
@@ -118,14 +121,14 @@ export default function HorizontalScrollSection() {
         </section>
 
         {/* Panel 4: Tagpuan Web Application Bento Grid */}
-        <section className="horizontal-panel w-full h-full flex-shrink-0 flex items-center justify-center border-r border-neutral-900/60 overflow-y-auto bg-zinc-950">
+        <section className="horizontal-panel snap-center w-[92vw] sm:w-[85vw] md:w-full h-full flex-shrink-0 flex items-center justify-center border-r border-neutral-900/60 overflow-y-auto bg-zinc-950">
           <div className="w-full h-full flex items-center justify-center overflow-y-auto py-4">
             <BentoGrid01 />
           </div>
         </section>
 
         {/* Panel 5: Graphic & UI Design Bento Showcase */}
-        <section className="horizontal-panel w-full h-full flex-shrink-0 flex items-center justify-center border-r border-neutral-900/60 overflow-y-auto bg-zinc-950">
+        <section className="horizontal-panel snap-center w-[92vw] sm:w-[85vw] md:w-full h-full flex-shrink-0 flex items-center justify-center border-r border-neutral-900/60 overflow-y-auto bg-zinc-950">
           <div className="w-full h-full flex items-center justify-center overflow-y-auto py-4">
             <BentoGridDesign />
           </div>

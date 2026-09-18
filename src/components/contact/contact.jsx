@@ -67,7 +67,9 @@ export default function ContactSection() {
 
     checkSubmissionLimit()
 
-    const ctx = gsap.context(() => {
+    const mm = gsap.matchMedia()
+
+    mm.add("(min-width: 768px)", () => {
       if (contactsRef.current) {
         gsap.from(contactsRef.current, {
           y: -120,
@@ -94,9 +96,9 @@ export default function ContactSection() {
           },
         })
       }
-    }, contactsRef)
+    })
 
-    return () => ctx.revert()
+    return () => mm.revert()
   }, [])
 
   const handleChange = (e) => {

@@ -272,21 +272,26 @@ const FoldText = ({
         const hoverHandler = () => play(false);
         root.addEventListener('mouseenter', hoverHandler);
       } else if (trigger === 'scroll') {
-        gsap.set(pieces, fromVars);
+        const isMobile = window.innerWidth < 768;
+        if (isMobile) {
+          gsap.set(pieces, { opacity: 1, rotateX: 0, rotateY: 0, '--fold-crease': 0, transformOrigin: hingeConfig.origin });
+        } else {
+          gsap.set(pieces, fromVars);
 
-        checkAndPlayIfInView();
+          checkAndPlayIfInView();
 
-        ScrollTrigger.create({
-          trigger: root,
-          start: 'top 95%',
-          onEnter: () => play(false),
-          onEnterBack: () => play(false),
-          once: true
-        });
+          ScrollTrigger.create({
+            trigger: root,
+            start: 'top 95%',
+            onEnter: () => play(false),
+            onEnterBack: () => play(false),
+            once: true
+          });
 
-        requestAnimationFrame(() => {
-          ScrollTrigger.refresh();
-        });
+          requestAnimationFrame(() => {
+            ScrollTrigger.refresh();
+          });
+        }
       } else if (trigger === 'loop') {
         play(true);
       } else {
