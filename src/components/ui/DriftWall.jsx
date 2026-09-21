@@ -1,6 +1,7 @@
 import { useCallback, useEffect, useLayoutEffect, useMemo, useRef, useState } from 'react';
 import { X } from 'lucide-react';
 
+import doubleB from '../../assets/doubleb.png';
 import tagpuanBranding from '../../assets/tagpuan-brandingcolor.webp';
 import ojt1 from '../../assets/ojt-1.webp';
 import ojt2 from '../../assets/ojt-2.webp';
@@ -15,14 +16,15 @@ import tagpuanHero3 from '../../assets/tagpuan-hero3.webp';
 import tagpuanLogo from '../../assets/tagpuan-logo.webp';
 
 const DEFAULT_ITEMS = [
+  { image: doubleB, title: 'Double B AutoShop UI' },
   { image: tagpuanHero, title: 'Tagpuan Coffee Website' },
   { image: tagpuanHero2, title: 'Tagpuan Showcase 2' },
   { image: tagpuanHero3, title: 'Tagpuan Showcase 3' },
   { image: tagpuanLogo, title: 'Tagpuan Logo & Brand' },
   { image: tagpuanBranding, title: 'Tagpuan Branding Palette' },
   { image: lodzPoster, title: 'Lodz Poster Design' },
-  { image: ojt1, title: 'OJT Project 1' },
-  { image: ojt2, title: 'OJT Project 2' },
+  { image: ojt1, title: 'Internship Project 1' },
+  { image: ojt2, title: 'Car Selling Platform' },
   { image: ojt3, title: 'OJT Project 3' },
   { image: ojt4, title: 'OJT Project 4' },
   { image: ojt5, title: 'OJT Project 5' },

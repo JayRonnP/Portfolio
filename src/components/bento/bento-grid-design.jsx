@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from "react"
 import { motion, AnimatePresence } from "framer-motion"
-import { Layout, Palette, Layers, Sparkles, Eye, Maximize2, Minimize2 } from "lucide-react"
+import { Layout, Palette, Layers, Sparkles, Eye, Maximize2, Minimize2, Car } from "lucide-react"
 
+import doubleB from '../../assets/doubleb.png'
 import lodzPoster from '../../assets/lodz-poster.webp'
 import ojt1 from '../../assets/ojt-1.webp'
 import ojt2 from '../../assets/ojt-2.webp'
@@ -39,8 +40,17 @@ function SingleCardImageViewer({ src, alt, fit = 'cover', bg = 'bg-black/60' }) 
 }
 
 function GraphicDesignShuffler() {
-  const images = [lodzPoster, ojt1, ojt2, ojt3]
-  const titles = ["Lodz Poster Design", "Internship Graphic 1", "UI Dashboard Layout", "Social Branding Asset"]
+  const images = [doubleB, lodzPoster, ojt1, ojt2, ojt3, ojt4, ojt5, ojt6]
+  const titles = [
+    "Double B AutoShop UI",
+    "Lodz Poster Art",
+    "OJT Project 1",
+    "Car Selling Platform",
+    "UI Dashboard Showcase",
+    "Commercial Graphic Design",
+    "Brand Layout 5",
+    "Internship Showcase 6"
+  ]
   const [currentIndex, setCurrentIndex] = useState(0)
   const [fit, setFit] = useState('cover')
 
@@ -169,7 +179,7 @@ export default function BentoGridDesign() {
         </h2>
       </div>
 
-      {/* Grid Layout (6 Columns Perfectly Proportioned) */}
+      {/* Grid Layout (6 Columns Perfectly Proportioned - Identical to Panel 4) */}
       <div className="grid grid-cols-1 md:grid-cols-6 gap-1.5 sm:gap-2 lg:gap-2.5">
         
         {/* 1. Main Graphic Showcase - Spans 4 Columns & 2 Rows */}
@@ -189,7 +199,7 @@ export default function BentoGridDesign() {
           <GraphicDesignShuffler />
 
           <p className="text-zinc-400 text-[10px] mt-1 font-mono">
-            Creative poster art, brand identity graphics, and custom illustration assets.
+            Double B AutoShop UI, creative poster art, and brand identity graphics.
           </p>
         </motion.div>
 
@@ -247,7 +257,7 @@ export default function BentoGridDesign() {
           <OjtProjectShuffler />
         </motion.div>
 
-        {/* 5. Commercial Graphic Art - Spans 2 Columns */}
+        {/* 5. Double B AutoShop Card - Spans 2 Columns */}
         <motion.div
           className="md:col-span-2 bg-zinc-900/90 border border-zinc-800 rounded-lg p-2 sm:p-2.5 flex flex-col justify-between hover:border-purple-500/50 transition-colors group overflow-hidden"
           initial={{ opacity: 1, y: 0 }}
@@ -255,12 +265,13 @@ export default function BentoGridDesign() {
         >
           <div className="flex items-center justify-between mb-1">
             <h3 className="font-serif text-xs text-white flex items-center gap-1.5 font-semibold">
-              <Layout className="w-3.5 h-3.5 text-purple-400" />
-              Commercial Art
+              <Car className="w-3.5 h-3.5 text-purple-400" />
+              Double B AutoShop
             </h3>
+            <span className="text-[8px] font-mono text-purple-400 font-semibold">CAR UI</span>
           </div>
 
-          <SingleCardImageViewer src={ojt4} alt="Commercial Graphic Design" fit="cover" />
+          <SingleCardImageViewer src={doubleB} alt="Double B AutoShop UI Design" fit="contain" bg="bg-black/90" />
         </motion.div>
 
       </div>
