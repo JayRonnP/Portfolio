@@ -121,15 +121,15 @@ export default function HorizontalScrollSection() {
         </section>
 
         {/* Panel 4: Tagpuan Web Application Bento Grid */}
-        <section className="horizontal-panel snap-center w-[92vw] sm:w-[85vw] md:w-full h-full flex-shrink-0 flex items-center justify-center border-r border-neutral-900/60 overflow-y-auto bg-zinc-950">
-          <div className="w-full h-full flex items-center justify-center overflow-y-auto py-4">
+        <section className="horizontal-panel snap-center w-[92vw] sm:w-[85vw] md:w-full h-full flex-shrink-0 flex flex-col justify-start md:justify-center border-r border-neutral-900/60 overflow-y-auto bg-zinc-950 p-3 sm:p-5 md:p-8 scrollbar-none">
+          <div className="w-full max-w-[1240px] mx-auto my-auto py-2">
             <BentoGrid01 />
           </div>
         </section>
 
         {/* Panel 5: Graphic & UI Design Bento Showcase */}
-        <section className="horizontal-panel snap-center w-[92vw] sm:w-[85vw] md:w-full h-full flex-shrink-0 flex items-center justify-center border-r border-neutral-900/60 overflow-y-auto bg-zinc-950">
-          <div className="w-full h-full flex items-center justify-center overflow-y-auto py-4">
+        <section className="horizontal-panel snap-center w-[92vw] sm:w-[85vw] md:w-full h-full flex-shrink-0 flex flex-col justify-start md:justify-center border-r border-neutral-900/60 overflow-y-auto bg-zinc-950 p-3 sm:p-5 md:p-8 scrollbar-none">
+          <div className="w-full max-w-[1240px] mx-auto my-auto py-2">
             <BentoGridDesign />
           </div>
         </section>

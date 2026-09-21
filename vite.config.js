@@ -23,4 +23,34 @@ export default defineConfig({
   optimizeDeps: {
     include: ['@use-gesture/react', 'three', 'gsap', 'ogl', 'lucide-react', 'canvas-confetti'],
   },
+  build: {
+    chunkSizeWarningLimit: 800,
+    rollupOptions: {
+      output: {
+        manualChunks(id) {
+          if (id.includes('node_modules')) {
+            if (id.includes('three')) {
+              return 'vendor-three'
+            }
+            if (id.includes('gsap')) {
+              return 'vendor-gsap'
+            }
+            if (id.includes('framer-motion')) {
+              return 'vendor-motion'
+            }
+            if (id.includes('lucide-react')) {
+              return 'vendor-icons'
+            }
+            if (id.includes('ogl')) {
+              return 'vendor-ogl'
+            }
+            if (id.includes('react') || id.includes('react-dom')) {
+              return 'vendor-react'
+            }
+            return 'vendor-utils'
+          }
+        },
+      },
+    },
+  },
 })

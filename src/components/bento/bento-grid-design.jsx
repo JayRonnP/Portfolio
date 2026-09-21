@@ -2,9 +2,6 @@ import React, { useState, useEffect } from "react"
 import { motion, AnimatePresence } from "framer-motion"
 import { Layout, Palette, Layers, Sparkles, Eye, Maximize2, Minimize2 } from "lucide-react"
 
-import aboutUs from '../../assets/Aboutus.svg'
-import heroSection from '../../assets/Hero-Section.svg'
-import sellingCar from '../../assets/Selling-car.svg'
 import lodzPoster from '../../assets/lodz-poster.webp'
 import ojt1 from '../../assets/ojt-1.webp'
 import ojt2 from '../../assets/ojt-2.webp'
@@ -22,7 +19,7 @@ function SingleCardImageViewer({ src, alt, fit = 'cover', bg = 'bg-black/60' }) 
   }
 
   return (
-    <div className={`relative w-full h-full min-h-[55px] sm:min-h-[70px] rounded-lg overflow-hidden border border-zinc-800 ${bg} flex items-center justify-center group/card`}>
+    <div className={`relative w-full h-[65px] sm:h-[80px] md:h-[95px] rounded-lg overflow-hidden border border-zinc-800 ${bg} flex items-center justify-center group/card`}>
       <img
         src={src}
         alt={alt}
@@ -42,8 +39,8 @@ function SingleCardImageViewer({ src, alt, fit = 'cover', bg = 'bg-black/60' }) 
 }
 
 function GraphicDesignShuffler() {
-  const images = [sellingCar, aboutUs, heroSection, lodzPoster]
-  const titles = ["Vehicle Sales Graphic", "About Us Layout", "Hero Section UI", "Lodz Poster Art"]
+  const images = [lodzPoster, ojt1, ojt2, ojt3]
+  const titles = ["Lodz Poster Design", "Internship Graphic 1", "UI Dashboard Layout", "Social Branding Asset"]
   const [currentIndex, setCurrentIndex] = useState(0)
   const [fit, setFit] = useState('cover')
 
@@ -60,7 +57,7 @@ function GraphicDesignShuffler() {
   }
 
   return (
-    <div className="relative w-full h-full min-h-[110px] sm:min-h-[140px] md:min-h-[155px] rounded-lg overflow-hidden border border-zinc-800 bg-zinc-950/80 group">
+    <div className="relative w-full h-[120px] sm:h-[145px] md:h-[165px] lg:h-[190px] rounded-lg overflow-hidden border border-zinc-800 bg-zinc-950/80 group">
       <AnimatePresence mode="wait">
         <motion.img
           key={currentIndex}
@@ -116,7 +113,7 @@ function OjtProjectShuffler() {
   }, [ojtImages.length])
 
   return (
-    <div className="relative w-full h-full min-h-[55px] sm:min-h-[70px] rounded-lg overflow-hidden border border-zinc-800 bg-zinc-950 flex items-center justify-center group/ojt">
+    <div className="relative w-full h-[65px] sm:h-[80px] md:h-[95px] rounded-lg overflow-hidden border border-zinc-800 bg-zinc-950 flex items-center justify-center group/ojt">
       <AnimatePresence mode="wait">
         <motion.img
           key={index}
@@ -263,7 +260,7 @@ export default function BentoGridDesign() {
             </h3>
           </div>
 
-          <SingleCardImageViewer src={sellingCar} alt="Selling Car Graphic Design" fit="cover" />
+          <SingleCardImageViewer src={ojt4} alt="Commercial Graphic Design" fit="cover" />
         </motion.div>
 
       </div>

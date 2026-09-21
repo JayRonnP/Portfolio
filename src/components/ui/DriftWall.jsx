@@ -1,9 +1,7 @@
 import { useCallback, useEffect, useLayoutEffect, useMemo, useRef, useState } from 'react';
 import { X } from 'lucide-react';
 
-import aboutUs from '../../assets/Aboutus.svg';
-import heroSection from '../../assets/Hero-Section.svg';
-import sellingCar from '../../assets/Selling-car.svg';
+import tagpuanBranding from '../../assets/tagpuan-brandingcolor.webp';
 import ojt1 from '../../assets/ojt-1.webp';
 import ojt2 from '../../assets/ojt-2.webp';
 import ojt3 from '../../assets/ojt-3.webp';
@@ -21,9 +19,7 @@ const DEFAULT_ITEMS = [
   { image: tagpuanHero2, title: 'Tagpuan Showcase 2' },
   { image: tagpuanHero3, title: 'Tagpuan Showcase 3' },
   { image: tagpuanLogo, title: 'Tagpuan Logo & Brand' },
-  { image: aboutUs, title: 'About Us Design' },
-  { image: heroSection, title: 'Hero Section Showcase' },
-  { image: sellingCar, title: 'Selling Car Design' },
+  { image: tagpuanBranding, title: 'Tagpuan Branding Palette' },
   { image: lodzPoster, title: 'Lodz Poster Design' },
   { image: ojt1, title: 'OJT Project 1' },
   { image: ojt2, title: 'OJT Project 2' },
