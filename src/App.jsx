@@ -82,7 +82,7 @@ export default function App() {
             </a>
 
             <nav className="flex items-center gap-3 sm:gap-6 text-[11px] sm:text-xs font-mono uppercase tracking-wider text-neutral-400">
-              <a href="#hero" className="hover:text-white transition-colors">Hero</a>
+              <a href="#hero" className="hover:text-white transition-colors">Home</a>
               <a href="#services" className="hover:text-white transition-colors">Services</a>
               <a href="#horizontal-showcase" className="hover:text-white transition-colors">Showcase</a>
               <a href="#about" className="hover:text-white transition-colors">About Me</a>

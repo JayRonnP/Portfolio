@@ -42,7 +42,7 @@ export default function Hero() {
                         </div>
                         <div className="block text-purple-400 font-extrabold tracking-tight">
                             <FoldText
-                                text="DEVELOPER/DESIGNER"
+                                text="FREELANCER/VA"
                                 splitBy="char"
                                 hinge="top"
                                 trigger="scroll"

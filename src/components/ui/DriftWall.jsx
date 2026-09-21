@@ -2,7 +2,6 @@ import { useCallback, useEffect, useLayoutEffect, useMemo, useRef, useState } fr
 import { X } from 'lucide-react';
 
 import doubleB from '../../assets/doubleb.png';
-import tagpuanBranding from '../../assets/tagpuan-brandingcolor.webp';
 import ojt1 from '../../assets/ojt-1.webp';
 import ojt2 from '../../assets/ojt-2.webp';
 import ojt3 from '../../assets/ojt-3.webp';
@@ -21,7 +20,6 @@ const DEFAULT_ITEMS = [
   { image: tagpuanHero2, title: 'Tagpuan Showcase 2' },
   { image: tagpuanHero3, title: 'Tagpuan Showcase 3' },
   { image: tagpuanLogo, title: 'Tagpuan Logo & Brand' },
-  { image: tagpuanBranding, title: 'Tagpuan Branding Palette' },
   { image: lodzPoster, title: 'Lodz Poster Design' },
   { image: ojt1, title: 'Internship Project 1' },
   { image: ojt2, title: 'Car Selling Platform' },
