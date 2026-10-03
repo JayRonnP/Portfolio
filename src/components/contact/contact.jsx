@@ -221,7 +221,7 @@ export default function ContactSection() {
                   onChange={handleChange}
                   disabled={isLimited}
                   required
-                  placeholder="Alex Morgan"
+                  placeholder="Juan Dela Cruz"
                   className="w-full px-4 py-3 bg-neutral-900 border border-neutral-800 rounded-xl text-white placeholder-neutral-600 focus:outline-none focus:border-purple-500 disabled:opacity-40 disabled:cursor-not-allowed text-sm transition-all"
                 />
               </div>
