@@ -3,7 +3,7 @@ import RotatingText from '@/components/ui/RotatingText'
 import './LandingPage.css'
 
 export default function LandingPage({ onEnter }) {
-  const landingTexts = ["WELCOME", "YOUR BRAND", "BUILT", "TO BE NOTICED"]
+  const landingTexts = ["YOUR BRAND BUILT", "TO BE NOTICED"]
 
   const handleEnter = () => {
     if (onEnter) onEnter()
