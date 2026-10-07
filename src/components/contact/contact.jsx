@@ -2,7 +2,8 @@ import React, { useEffect, useRef, useState } from 'react'
 import gsap from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
 import { Mail, Send, CheckCircle2, Loader2, AlertCircle, ShieldCheck, Download, FileText } from 'lucide-react'
-import cvPdf from '../../assets/Sing.pdf'
+import cvPdf from '../../assets/RON.pdf'
+
 
 gsap.registerPlugin(ScrollTrigger)
 
@@ -196,7 +197,7 @@ export default function ContactSection() {
             <div className="text-white font-semibold text-sm">Curriculum Vitae</div>
             <a
               href={cvPdf}
-              download="Jiron_CV.pdf"
+              download="RON.pdf"
               className="w-full py-3 px-4 bg-neutral-900 border border-neutral-800 hover:border-neutral-700 text-white font-medium text-sm rounded-xl transition-all flex items-center justify-between group cursor-pointer"
             >
               <div className="flex items-center gap-2.5">
