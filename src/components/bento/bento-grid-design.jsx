@@ -1,6 +1,7 @@
-import React, { useState, useEffect } from "react"
+import { useState, useEffect } from "react"
+import { createPortal } from "react-dom"
 import { motion, AnimatePresence } from "framer-motion"
-import { Layout, Palette, Layers, Sparkles, Eye, Maximize2, Minimize2, Car } from "lucide-react"
+import { Layout, Palette, Layers, Eye, Maximize2, Minimize2, Car, X } from "lucide-react"
 
 import doubleB from '../../assets/doubleb.png'
 import lodzPoster from '../../assets/lodz-poster.webp'
@@ -11,7 +12,57 @@ import ojt4 from '../../assets/ojt4.webp'
 import ojt5 from '../../assets/ojt5.webp'
 import ojt6 from '../../assets/ojt6.webp'
 
-function SingleCardImageViewer({ src, alt, fit = 'cover', bg = 'bg-black/60' }) {
+function ImageLightbox({ image, onClose }) {
+  useEffect(() => {
+    const previousOverflow = document.body.style.overflow
+    const handleKeyDown = (event) => {
+      if (event.key === 'Escape') onClose()
+    }
+
+    document.body.style.overflow = 'hidden'
+    window.addEventListener('keydown', handleKeyDown)
+
+    return () => {
+      document.body.style.overflow = previousOverflow
+      window.removeEventListener('keydown', handleKeyDown)
+    }
+  }, [onClose])
+
+  return createPortal(
+    <div
+      className="fixed inset-0 z-[100] flex items-center justify-center bg-black/90 p-3 sm:p-6 backdrop-blur-md"
+      onClick={onClose}
+    >
+      <div
+        role="dialog"
+        aria-modal="true"
+        aria-label={image.alt}
+        className="relative flex max-h-full max-w-full flex-col items-center gap-3"
+        onClick={(event) => event.stopPropagation()}
+      >
+        <button
+          type="button"
+          onClick={onClose}
+          aria-label="Close image preview"
+          className="absolute -right-2 -top-2 z-10 rounded-full border border-zinc-700 bg-zinc-900 p-2 text-white transition-colors hover:bg-purple-900 sm:right-0 sm:top-0"
+        >
+          <X className="h-5 w-5" />
+        </button>
+        <img
+          src={image.src}
+          alt={image.alt}
+          className="max-h-[85vh] max-w-[92vw] rounded-lg object-contain"
+        />
+        <p className="text-center font-mono text-xs font-semibold uppercase tracking-wider text-purple-300 sm:text-sm">
+          {image.alt}
+        </p>
+      </div>
+    </div>,
+    document.body
+  )
+}
+
+function SingleCardImageViewer({ src, alt, fit = 'cover', bg = 'bg-black/60', onImageClick }) {
   const [currentFit, setCurrentFit] = useState(fit)
 
   const toggleFit = (e) => {
@@ -21,17 +72,25 @@ function SingleCardImageViewer({ src, alt, fit = 'cover', bg = 'bg-black/60' }) 
 
   return (
     <div className={`relative w-full h-[65px] sm:h-[80px] md:h-[95px] rounded-lg overflow-hidden border border-zinc-800 ${bg} flex items-center justify-center group/card`}>
-      <img
-        src={src}
-        alt={alt}
-        className={`w-full h-full transition-all duration-300 ${
-          currentFit === 'cover' ? 'object-cover' : 'object-contain p-1'
-        }`}
-      />
       <button
+        type="button"
+        onClick={() => onImageClick(src, alt)}
+        aria-label={`View ${alt} full size`}
+        className="absolute inset-0 z-0 cursor-zoom-in"
+      >
+        <img
+          src={src}
+          alt={alt}
+          className={`h-full w-full transition-all duration-300 ${
+            currentFit === 'cover' ? 'object-cover' : 'object-contain p-1'
+          }`}
+        />
+      </button>
+      <button
+        type="button"
         onClick={toggleFit}
         title={currentFit === 'cover' ? 'View Full Image' : 'Fill Container'}
-        className="absolute bottom-1.5 right-1.5 p-1 rounded bg-zinc-950/80 hover:bg-purple-900/90 text-white/70 hover:text-white border border-zinc-700/50 backdrop-blur-sm transition-all duration-200 opacity-0 group-hover/card:opacity-100 z-10"
+        className="absolute bottom-1.5 right-1.5 z-10 rounded border border-zinc-700/50 bg-zinc-950/80 p-1 text-white/70 backdrop-blur-sm transition-all duration-200 hover:bg-purple-900/90 hover:text-white group-hover/card:opacity-100"
       >
         {currentFit === 'cover' ? <Minimize2 className="w-3 h-3" /> : <Maximize2 className="w-3 h-3" />}
       </button>
@@ -39,7 +98,7 @@ function SingleCardImageViewer({ src, alt, fit = 'cover', bg = 'bg-black/60' }) 
   )
 }
 
-function GraphicDesignShuffler() {
+function GraphicDesignShuffler({ onImageClick }) {
   const images = [doubleB, lodzPoster, ojt1, ojt2, ojt3, ojt4, ojt5, ojt6]
   const titles = [
     "Double B AutoShop UI",
@@ -69,16 +128,23 @@ function GraphicDesignShuffler() {
   return (
     <div className="relative w-full h-[120px] sm:h-[145px] md:h-[165px] lg:h-[190px] rounded-lg overflow-hidden border border-zinc-800 bg-zinc-950/80 group">
       <AnimatePresence mode="wait">
-        <motion.img
+        <motion.button
+          type="button"
           key={currentIndex}
-          src={images[currentIndex]}
-          alt={titles[currentIndex]}
+          onClick={() => onImageClick(images[currentIndex], titles[currentIndex])}
+          aria-label={`View ${titles[currentIndex]} full size`}
           initial={{ opacity: 0, scale: 1.05 }}
           animate={{ opacity: 1, scale: 1 }}
           exit={{ opacity: 0, scale: 0.95 }}
           transition={{ duration: 0.7, ease: "easeInOut" }}
-          className={`w-full h-full ${fit === 'cover' ? 'object-cover' : 'object-contain p-1.5'}`}
-        />
+          className="absolute inset-0 h-full w-full cursor-zoom-in"
+        >
+          <img
+            src={images[currentIndex]}
+            alt={titles[currentIndex]}
+            className={`h-full w-full ${fit === 'cover' ? 'object-cover' : 'object-contain p-1.5'}`}
+          />
+        </motion.button>
       </AnimatePresence>
 
       <div className="absolute inset-x-0 bottom-0 p-1.5 bg-gradient-to-t from-black/90 via-black/50 to-transparent flex items-center justify-between z-10">
@@ -89,6 +155,7 @@ function GraphicDesignShuffler() {
           </span>
         </div>
         <button
+          type="button"
           onClick={toggleFit}
           className="p-1 rounded bg-zinc-900/90 hover:bg-purple-900 text-white/70 hover:text-white border border-zinc-700/60 backdrop-blur-md transition-all duration-200"
         >
@@ -99,6 +166,7 @@ function GraphicDesignShuffler() {
       <div className="absolute top-2 right-2 flex items-center gap-1 z-10">
         {images.map((_, idx) => (
           <button
+            type="button"
             key={idx}
             onClick={() => setCurrentIndex(idx)}
             className={`h-1 rounded-full transition-all duration-300 ${
@@ -111,7 +179,7 @@ function GraphicDesignShuffler() {
   )
 }
 
-function OjtProjectShuffler() {
+function OjtProjectShuffler({ onImageClick }) {
   const ojtImages = [ojt1, ojt2, ojt3, ojt4, ojt5, ojt6]
   const [index, setIndex] = useState(0)
 
@@ -125,16 +193,23 @@ function OjtProjectShuffler() {
   return (
     <div className="relative w-full h-[65px] sm:h-[80px] md:h-[95px] rounded-lg overflow-hidden border border-zinc-800 bg-zinc-950 flex items-center justify-center group/ojt">
       <AnimatePresence mode="wait">
-        <motion.img
+        <motion.button
+          type="button"
           key={index}
-          src={ojtImages[index]}
-          alt={`OJT Project ${index + 1}`}
+          onClick={() => onImageClick(ojtImages[index], `OJT Project ${index + 1}`)}
+          aria-label={`View OJT Project ${index + 1} full size`}
           initial={{ opacity: 0, x: 20 }}
           animate={{ opacity: 1, x: 0 }}
           exit={{ opacity: 0, x: -20 }}
           transition={{ duration: 0.5 }}
-          className="w-full h-full object-cover"
-        />
+          className="absolute inset-0 h-full w-full cursor-zoom-in"
+        >
+          <img
+            src={ojtImages[index]}
+            alt={`OJT Project ${index + 1}`}
+            className="h-full w-full object-cover"
+          />
+        </motion.button>
       </AnimatePresence>
 
       <div className="absolute top-1.5 left-1.5 px-1.5 py-0.2 rounded bg-black/70 backdrop-blur-md border border-zinc-700/50 text-[8px] sm:text-[9px] font-mono text-purple-300 font-semibold z-10">
@@ -170,7 +245,12 @@ function DesignToolBadges() {
 }
 
 export default function BentoGridDesign() {
+  const [selectedImage, setSelectedImage] = useState(null)
+
+  const openImage = (src, alt) => setSelectedImage({ src, alt })
+
   return (
+    <>
     <div className="max-w-[1240px] w-full mx-auto px-2.5 sm:px-4 lg:px-6 py-1 sm:py-2">
       {/* Header */}
       <div className="flex items-center justify-between mb-1.5 sm:mb-2 border-b border-zinc-800/80 pb-1">
@@ -196,7 +276,7 @@ export default function BentoGridDesign() {
             <span className="text-[8px] sm:text-[9px] font-mono text-zinc-500 uppercase">ARTWORK</span>
           </div>
 
-          <GraphicDesignShuffler />
+          <GraphicDesignShuffler onImageClick={openImage} />
 
           <p className="text-zinc-400 text-[10px] mt-1 font-mono">
             Double B AutoShop UI, creative poster art, and brand identity graphics.
@@ -238,7 +318,7 @@ export default function BentoGridDesign() {
             <span className="text-[8px] font-mono text-zinc-500">POSTER</span>
           </div>
 
-          <SingleCardImageViewer src={lodzPoster} alt="Lodz Poster Art" fit="cover" />
+          <SingleCardImageViewer src={lodzPoster} alt="Lodz Poster Art" fit="cover" onImageClick={openImage} />
         </motion.div>
 
         {/* 4. Real-World UI & OJT Projects - Spans 2 Columns */}
@@ -254,7 +334,7 @@ export default function BentoGridDesign() {
             </h3>
           </div>
 
-          <OjtProjectShuffler />
+          <OjtProjectShuffler onImageClick={openImage} />
         </motion.div>
 
         {/* 5. Double B AutoShop Card - Spans 2 Columns */}
@@ -271,10 +351,14 @@ export default function BentoGridDesign() {
             <span className="text-[8px] font-mono text-purple-400 font-semibold">CAR UI</span>
           </div>
 
-          <SingleCardImageViewer src={doubleB} alt="Double B AutoShop UI Design" fit="contain" bg="bg-black/90" />
+          <SingleCardImageViewer src={doubleB} alt="Double B AutoShop UI Design" fit="contain" bg="bg-black/90" onImageClick={openImage} />
         </motion.div>
 
       </div>
     </div>
+    {selectedImage && (
+      <ImageLightbox image={selectedImage} onClose={() => setSelectedImage(null)} />
+    )}
+    </>
   )
 }
