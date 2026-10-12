@@ -22,7 +22,7 @@ export default function AboutMeSection() {
   ]
 
   const highlights = [
-    { label: 'Specialization', val: 'Full-Stack Web & UI/UX' },
+    { label: 'Specialization', val: 'Landing Page Specialist' },
     { label: 'Location', val: 'Philippines (Remote Available)' },
     { label: 'Experience', val: 'Custom Web Apps & Funnels' },
     { label: 'Focus', val: 'High Performance & Design' }

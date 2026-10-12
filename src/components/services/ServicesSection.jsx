@@ -93,7 +93,7 @@ export default function ServicesSection() {
         {/* Section Header */}
         <div className="space-y-3 pb-6">
           <h2 className="text-3xl sm:text-5xl md:text-6xl font-extrabold tracking-tight text-white uppercase">
-            WHAT I BRING TO THE TABLE
+            HOW CAN I SUPPORT YOUR BUSINESS?
           </h2>
         </div>
 
