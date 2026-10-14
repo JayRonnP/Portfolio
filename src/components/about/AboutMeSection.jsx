@@ -1,6 +1,5 @@
-import React from 'react'
 import { motion } from 'framer-motion'
-import { User, Sparkles, Code2, Heart, GraduationCap, Award, MapPin, CheckCircle, ArrowRight } from 'lucide-react'
+import { CheckCircle } from 'lucide-react'
 
 export default function AboutMeSection() {
   const pillars = [

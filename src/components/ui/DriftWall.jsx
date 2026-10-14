@@ -80,11 +80,10 @@ const DriftWall = ({
   const [containerHeight, setContainerHeight] = useState(typeof window !== 'undefined' ? window.innerHeight : 800);
   const [activeId, setActiveId] = useState(null);
   const activeIdRef = useRef(null);
-  const [reduced, setReduced] = useState(false);
+  const [reduced, setReduced] = useState(prefersReducedMotion);
   const [selectedImage, setSelectedImage] = useState(null);
 
   useEffect(() => {
-    setReduced(prefersReducedMotion());
     const mq = window.matchMedia('(prefers-reduced-motion: reduce)');
     const onChange = e => setReduced(e.matches);
     mq.addEventListener('change', onChange);
@@ -377,6 +376,8 @@ const DriftWall = ({
               <img
                 src={selectedImage.image}
                 alt={selectedImage.title || 'Work'}
+                loading="eager"
+                decoding="async"
                 className="max-h-[75vh] w-auto object-contain"
               />
             </div>

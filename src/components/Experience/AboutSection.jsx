@@ -1,6 +1,5 @@
-import React from 'react'
 import { motion } from 'framer-motion'
-import { Code2, Palette, Cpu, Sparkles, Zap, ShieldCheck, Terminal, Award } from 'lucide-react'
+import { Code2, Palette, Cpu, Zap, ShieldCheck, Terminal } from 'lucide-react'
 
 export default function AboutSection() {
   const capabilities = [

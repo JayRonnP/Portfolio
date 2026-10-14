@@ -748,6 +748,7 @@ const Ballpit = ({ className = '', followCursor = true, ...props }) => {
   const canvasRef = useRef(null);
   const spheresInstanceRef = useRef(null);
   const isFirstRender = useRef(true);
+  const configRef = useRef({ followCursor, ...props });
   const [ready, setReady] = useState(false);
 
   useEffect(() => {
@@ -758,8 +759,7 @@ const Ballpit = ({ className = '', followCursor = true, ...props }) => {
     const raf = requestAnimationFrame(() => {
       if (cancelled) return;
       spheresInstanceRef.current = createBallpit(canvas, {
-        followCursor,
-        ...props,
+        ...configRef.current,
         onReady: () => setReady(true)
       });
     });
@@ -775,6 +775,7 @@ const Ballpit = ({ className = '', followCursor = true, ...props }) => {
   }, []);
 
   useEffect(() => {
+    configRef.current = { followCursor, ...props };
     if (isFirstRender.current) {
       isFirstRender.current = false;
       return;

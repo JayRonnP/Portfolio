@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+import { useState, useEffect } from 'react'
 import { AnimatePresence, motion } from 'framer-motion'
 import { Terminal } from 'lucide-react'
 import gsap from 'gsap'
@@ -14,7 +14,6 @@ gsap.registerPlugin(ScrollTrigger)
 
 export default function App() {
   const [hasEntered, setHasEntered] = useState(false)
-  const [animationDone, setAnimationDone] = useState(false)
 
   // Lock body & document scroll until the user enters from the Landing Page
   useEffect(() => {
@@ -56,7 +55,7 @@ export default function App() {
               scale: 0.97,
               transition: { duration: 1.1, ease: [0.76, 0, 0.24, 1] }
             }}
-            className="fixed inset-0 z-[100] touch-none"
+            className="fixed inset-0 z-100 touch-none"
           >
             <LandingPage onEnter={() => setHasEntered(true)} />
           </motion.div>

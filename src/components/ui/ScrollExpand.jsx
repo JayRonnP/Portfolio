@@ -41,19 +41,22 @@ const ScrollExpand = ({
   const hintRef = useRef(null);
 
   const propsRef = useRef({});
-  propsRef.current = {
-    startWidth,
-    startHeight,
-    startRadius,
-    endRadius,
-    mediaZoom,
-    scrollDistance,
-    holdDistance,
-    smoothing,
-    overlayScrim,
-    useWindowScroll,
-    enabled
-  };
+
+  useEffect(() => {
+    propsRef.current = {
+      startWidth,
+      startHeight,
+      startRadius,
+      endRadius,
+      mediaZoom,
+      scrollDistance,
+      holdDistance,
+      smoothing,
+      overlayScrim,
+      useWindowScroll,
+      enabled
+    };
+  });
 
   const applyProgress = useCallback(p => {
     const frame = frameRef.current;
@@ -200,6 +203,8 @@ const ScrollExpand = ({
         ref={mediaRef}
         className="absolute inset-0 w-full h-full object-cover origin-center select-none [will-change:transform]"
         src={src}
+        loading="lazy"
+        decoding="async"
         alt={alt}
         draggable={false}
       />

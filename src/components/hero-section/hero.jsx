@@ -1,4 +1,3 @@
-import React from 'react'
 import { ArrowDown, ArrowUpRight } from 'lucide-react'
 import Ballpit from '../ui/Ballpit'
 import FoldText from '../ui/FoldText'
@@ -22,7 +21,7 @@ export default function Hero() {
             {/* Hero Content Overlay */}
             <div className="relative z-10 flex-1 flex flex-col justify-center px-4 sm:px-6 max-w-6xl mx-auto space-y-6 sm:space-y-8 w-full my-auto py-6">
                 <div className="space-y-4 max-w-3xl">
-                    <h1 className="text-3xl sm:text-5xl md:text-6xl lg:text-7xl font-extrabold tracking-tight uppercase leading-tight sm:leading-[1.05] drop-shadow-lg break-words space-y-1">
+                    <h1 className="text-3xl sm:text-5xl md:text-6xl lg:text-7xl font-extrabold tracking-tight uppercase leading-tight sm:leading-[1.05] drop-shadow-lg wrap-break-word space-y-1">
                         <div className="block text-white">
                             <FoldText
                                 text="RONDEV"
@@ -40,10 +39,10 @@ export default function Hero() {
                                 color="#ffffff"
                             />
                         </div>
-                        <div className="block text-purple-400 font-extrabold tracking-tight">
+                        <div className="block max-w-3xl text-[clamp(1rem,3vw,2rem)] font-extrabold leading-[1.1] tracking-tight text-purple-400">
                             <FoldText
-                                text="Web Designer"
-                                splitBy="char"
+                                text="Aspiring Web Marketing Specialist"
+                                splitBy="word"
                                 hinge="top"
                                 trigger="scroll"
                                 duration={0.40}

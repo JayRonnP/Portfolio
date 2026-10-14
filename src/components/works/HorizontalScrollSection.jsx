@@ -1,15 +1,48 @@
-import React, { useEffect, useRef } from 'react'
+import { useEffect, useRef } from 'react'
 import gsap from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
 import { ArrowRight } from 'lucide-react'
-import DriftWall from '../ui/DriftWall'
+import TiltedGridHero from '../ui/tilted-grid-hero'
 import WarpText from '../ui/WarpText'
 import BentoGrid01 from '../bento/bento-grid-01'
 import BentoGridDesign from '../bento/bento-grid-design'
+import BentoGridFunnel from '../bento/bento-grid-funnel'
+import doubleB from '../../assets/doubleb.png'
+import ojt1 from '../../assets/ojt-1.webp'
+import ojt2 from '../../assets/ojt-2.webp'
+import ojt3 from '../../assets/ojt-3.webp'
+import ojt4 from '../../assets/ojt4.webp'
+import ojt5 from '../../assets/ojt5.webp'
+import ojt6 from '../../assets/ojt6.webp'
+import lodzPoster from '../../assets/lodz-poster.webp'
+import tagpuanHero from '../../assets/tagpuan-hero.webp'
+import tagpuanHero2 from '../../assets/tagpuan-hero2.webp'
+import tagpuanHero3 from '../../assets/tagpuan-hero3.webp'
+import tagpuanLogo from '../../assets/tagpuan-logo.webp'
 
 gsap.registerPlugin(ScrollTrigger)
 
 const PANEL3_TEXT = "Let's discover, the website I built through out my journey"
+
+const GALLERY_IMAGES = [
+  { src: doubleB, alt: 'Double B AutoShop UI' },
+  { src: tagpuanHero, alt: 'Tagpuan Coffee Website' },
+  { src: tagpuanHero2, alt: 'Tagpuan Showcase 2' },
+  { src: tagpuanHero3, alt: 'Tagpuan Showcase 3' },
+  {
+    src: tagpuanLogo,
+    alt: 'Tagpuan Logo and Brand',
+    fit: 'contain',
+    backgroundColor: '#fff',
+  },
+  { src: lodzPoster, alt: 'Lodz Poster Design' },
+  { src: ojt1, alt: 'Internship Project 1' },
+  { src: ojt2, alt: 'Car Selling Platform' },
+  { src: ojt3, alt: 'OJT Project 3' },
+  { src: ojt4, alt: 'OJT Project 4' },
+  { src: ojt5, alt: 'OJT Project 5' },
+  { src: ojt6, alt: 'OJT Project 6' },
+]
 
 export default function HorizontalScrollSection() {
   const containerRef = useRef(null)
@@ -19,8 +52,10 @@ export default function HorizontalScrollSection() {
 
     // Desktop/Tablet horizontal pin & scroll animation (min-width: 768px)
     mm.add("(min-width: 768px)", () => {
-      const sections = gsap.utils.toArray('.horizontal-panel')
-      if (!sections.length || !containerRef.current) return
+      const container = containerRef.current
+      if (!container) return
+      const sections = gsap.utils.toArray('.horizontal-panel', container)
+      if (sections.length < 2) return
 
       const scrollTween = gsap.to(sections, {
         xPercent: -100 * (sections.length - 1),
@@ -29,7 +64,12 @@ export default function HorizontalScrollSection() {
           trigger: containerRef.current,
           pin: true,
           scrub: 0.1,
-          end: '+=3200',
+          end: () => {
+            const travelDistance = sections
+              .slice(0, -1)
+              .reduce((distance, section) => distance + section.offsetWidth, 0)
+            return `+=${travelDistance}`
+          },
           invalidateOnRefresh: true,
         },
       })
@@ -63,7 +103,7 @@ export default function HorizontalScrollSection() {
         className="w-full h-[85vh] sm:h-[90vh] md:h-screen overflow-x-auto md:overflow-hidden flex flex-nowrap snap-x snap-mandatory relative bg-neutral-950 border-y border-neutral-900 scrollbar-none"
       >
         {/* Panel 1: Bold Hero with WarpText */}
-        <section className="horizontal-panel snap-center w-[92vw] sm:w-[85vw] md:w-full h-full flex-shrink-0 flex items-center justify-center p-4 sm:p-8 md:p-16 border-r border-neutral-900/60 bg-gradient-to-br from-neutral-950 via-purple-950/20 to-neutral-950">
+        <section className="horizontal-panel snap-center w-[92vw] sm:w-[85vw] md:w-full h-full shrink-0 flex items-center justify-center p-4 sm:p-8 md:p-16 border-r border-neutral-900/60 bg-linear-to-br from-neutral-950 via-purple-950/20 to-neutral-950">
           <div className="max-w-4xl w-full space-y-4 sm:space-y-6 text-center sm:text-left flex flex-col items-center sm:items-start px-2">
             <div className="w-full">
               <WarpText
@@ -92,15 +132,16 @@ export default function HorizontalScrollSection() {
           </div>
         </section>
 
-        {/* Panel 2: Interactive DriftWall Gallery */}
-        <section className="horizontal-panel snap-center w-[92vw] sm:w-[85vw] md:w-full h-full flex-shrink-0 relative overflow-hidden border-r border-neutral-900/60">
-          <div className="w-full h-full">
-            <DriftWall />
-          </div>
+        {/* Panel 2: Curved scrolling portfolio gallery */}
+        <section className="horizontal-panel snap-center w-[92vw] sm:w-[85vw] md:w-full h-full shrink-0 relative overflow-hidden border-r border-neutral-900/60">
+          <TiltedGridHero
+            images={GALLERY_IMAGES}
+            className="h-full w-full bg-black"
+          />
         </section>
 
         {/* Panel 3: Horizontal Interactive Text Reveal */}
-        <section className="horizontal-panel snap-center w-[92vw] sm:w-[85vw] md:w-full h-full flex-shrink-0 flex items-center overflow-hidden border-r border-neutral-900/60 bg-neutral-950">
+        <section className="horizontal-panel snap-center w-[92vw] sm:w-[85vw] md:w-full h-full shrink-0 flex items-center overflow-hidden border-r border-neutral-900/60 bg-neutral-950">
           <div className="container mx-auto px-4 sm:px-6">
             <h3 className="Horizontal__text heading-xl text-2xl sm:text-5xl md:text-7xl lg:text-8xl font-bold flex flex-wrap gap-x-[0.3em] gap-y-2 text-white">
               {PANEL3_TEXT.split(' ').map((word, wIdx) => (
@@ -121,16 +162,23 @@ export default function HorizontalScrollSection() {
         </section>
 
         {/* Panel 4: Tagpuan Web Application Bento Grid */}
-        <section className="horizontal-panel snap-center w-[92vw] sm:w-[85vw] md:w-full h-full flex-shrink-0 flex flex-col justify-start md:justify-center border-r border-neutral-900/60 overflow-y-auto bg-zinc-950 p-3 sm:p-5 md:p-8 scrollbar-none">
-          <div className="w-full max-w-[1240px] mx-auto my-auto py-2">
+        <section className="horizontal-panel snap-center w-[92vw] sm:w-[85vw] md:w-full h-full shrink-0 flex flex-col justify-start md:justify-center border-r border-neutral-900/60 overflow-y-auto bg-zinc-950 p-3 sm:p-5 md:p-8 scrollbar-none">
+          <div className="w-full max-w-310 mx-auto my-auto py-2">
             <BentoGrid01 />
           </div>
         </section>
 
         {/* Panel 5: Graphic & UI Design Bento Showcase */}
-        <section className="horizontal-panel snap-center w-[92vw] sm:w-[85vw] md:w-full h-full flex-shrink-0 flex flex-col justify-start md:justify-center border-r border-neutral-900/60 overflow-y-auto bg-zinc-950 p-3 sm:p-5 md:p-8 scrollbar-none">
-          <div className="w-full max-w-[1240px] mx-auto my-auto py-2">
+        <section className="horizontal-panel snap-center w-[92vw] sm:w-[85vw] md:w-full h-full shrink-0 flex flex-col justify-start md:justify-center border-r border-neutral-900/60 overflow-y-auto bg-zinc-950 p-3 sm:p-5 md:p-8 scrollbar-none">
+          <div className="w-full max-w-310 mx-auto my-auto py-2">
             <BentoGridDesign />
+          </div>
+        </section>
+
+        {/* Panel 6: Lead Generation Funnel Design */}
+        <section className="horizontal-panel snap-center w-[92vw] sm:w-[85vw] md:w-full h-full shrink-0 flex flex-col justify-start md:justify-center border-r border-neutral-900/60 overflow-y-auto bg-zinc-950 p-3 sm:p-5 md:p-8 scrollbar-none">
+          <div className="w-full max-w-310 mx-auto my-auto py-2">
+            <BentoGridFunnel />
           </div>
         </section>
       </div>

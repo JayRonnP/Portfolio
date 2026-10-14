@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import gsap from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
 import { Mail, Send, CheckCircle2, Loader2, AlertCircle, ShieldCheck, Download, FileText } from 'lucide-react'
@@ -303,5 +303,4 @@ export default function ContactSection() {
     </section>
   )
 }
-
 

@@ -1,13 +1,15 @@
-import React, { useState, useEffect } from "react"
+import { useState, useEffect } from "react"
 import { motion, AnimatePresence } from "framer-motion"
-import { Lock, Smartphone, Globe, Maximize2, Minimize2, ArrowUpRight, Sparkles, Code2, ExternalLink } from "lucide-react"
+import { Globe, Maximize2, Minimize2, ArrowUpRight, Code2 } from "lucide-react"
+import ImageLightbox from '../ui/ImageLightbox'
+import LazyImage from '../ui/LazyImage'
 
 import tagpuanHero from '../../assets/tagpuan-hero.webp'
 import tagpuanHero2 from '../../assets/tagpuan-hero2.webp'
 import tagpuanHero3 from '../../assets/tagpuan-hero3.webp'
 import tagpuanLogo from '../../assets/tagpuan-logo.webp'
 
-function HeroImageShuffler() {
+function HeroImageShuffler({ onImageClick }) {
   const images = [tagpuanHero, tagpuanHero2, tagpuanHero3]
   const [currentIndex, setCurrentIndex] = useState(0)
   const [fit, setFit] = useState('cover')
@@ -27,16 +29,23 @@ function HeroImageShuffler() {
   return (
     <div className="relative w-full h-[120px] sm:h-[145px] md:h-[165px] lg:h-[190px] rounded-lg overflow-hidden border border-zinc-800 bg-black/60 flex items-center justify-center group/hero">
       <AnimatePresence mode="wait">
-        <motion.img
+        <motion.button
+          type="button"
           key={currentIndex}
-          src={images[currentIndex]}
-          alt={`Tagpuan Hero ${currentIndex + 1}`}
-          className={`w-full h-full ${fit === 'cover' ? 'object-cover' : 'object-contain p-1.5'}`}
+          onClick={() => onImageClick(images[currentIndex], `Tagpuan Hero ${currentIndex + 1}`)}
+          aria-label={`View Tagpuan Hero ${currentIndex + 1} full size`}
+          className="absolute inset-0 h-full w-full cursor-zoom-in"
           initial={{ opacity: 0, scale: 1.05 }}
           animate={{ opacity: 1, scale: 1 }}
           exit={{ opacity: 0, scale: 0.95 }}
           transition={{ duration: 0.6, ease: 'easeInOut' }}
-        />
+        >
+          <LazyImage
+            src={images[currentIndex]}
+            alt={`Tagpuan Hero ${currentIndex + 1}`}
+            className={`w-full h-full ${fit === 'cover' ? 'object-cover' : 'object-contain p-1.5'}`}
+          />
+        </motion.button>
       </AnimatePresence>
 
       <div className="absolute top-1.5 right-1.5 flex items-center gap-1 z-10">
@@ -126,7 +135,11 @@ function TechStackBadges() {
 }
 
 export function FeaturesSection() {
+  const [selectedImage, setSelectedImage] = useState(null)
+  const openImage = (src, alt) => setSelectedImage({ src, alt })
+
   return (
+    <>
     <div className="max-w-[1240px] w-full mx-auto px-2.5 sm:px-4 lg:px-6 py-1 sm:py-2">
       {/* Header */}
       <div className="flex items-center justify-between mb-1.5 sm:mb-2 border-b border-zinc-800/80 pb-1">
@@ -152,7 +165,7 @@ export function FeaturesSection() {
             <span className="text-[8px] sm:text-[9px] font-mono text-zinc-500 uppercase">WEBSITE UI</span>
           </div>
 
-          <HeroImageShuffler />
+          <HeroImageShuffler onImageClick={openImage} />
 
           <p className="text-zinc-400 text-[10px] mt-1 font-mono">
             Interactive hero section showcasing Tagpuan's signature products.
@@ -205,13 +218,18 @@ export function FeaturesSection() {
             <span className="text-[8px] text-zinc-500 font-mono">LOGO</span>
           </div>
 
-          <div className="relative w-full h-[65px] sm:h-[80px] md:h-[95px] rounded-lg overflow-hidden border border-zinc-800 bg-white flex items-center justify-center p-2 group/logo">
-            <img
+          <button
+            type="button"
+            onClick={() => openImage(tagpuanLogo, 'Tagpuan Logo')}
+            aria-label="View Tagpuan Logo full size"
+            className="relative flex w-full h-[65px] sm:h-[80px] md:h-[95px] items-center justify-center overflow-hidden rounded-lg border border-zinc-800 bg-white p-2 cursor-zoom-in group/logo"
+          >
+            <LazyImage
               src={tagpuanLogo}
               alt="Tagpuan Logo"
               className="max-h-full max-w-full object-contain transition-transform duration-300 group-hover/logo:scale-105"
             />
-          </div>
+          </button>
         </motion.div>
 
         {/* 5. Live Website CTA - Spans 2 Columns */}
@@ -241,6 +259,10 @@ export function FeaturesSection() {
 
       </div>
     </div>
+    {selectedImage && (
+      <ImageLightbox image={selectedImage} onClose={() => setSelectedImage(null)} />
+    )}
+    </>
   )
 }
 
